@@ -10,6 +10,7 @@ package com.mycompany.practica1compiladorer;
  * @author Dulfary
  */
 public class Node {
+    private int name=0;
     private String LeftExpression;
     private Node LeftLink;
     private String RightExpression;
@@ -28,6 +29,14 @@ public class Node {
         this.LeftExpression = LeftExpression;
         this.LeftLink = LeftLink;
         this.state = state;
+    }
+
+    public int getName() {
+        return name;
+    }
+
+    public void setName(int name) {
+        this.name = name;
     }
     
     public String getLeftExpression() {
@@ -69,4 +78,5 @@ public class Node {
     public void setState(int state) {
         this.state = state;
     }
+    
 }

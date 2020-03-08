@@ -28,7 +28,7 @@ public class Thompson {
     
     public void nullSequence(){
         firstNode.setLeftLink(secondNode);
-        firstNode.setLeftExpression("");
+        firstNode.setLeftExpression("!");
     }
     
     public void setR(String r){
@@ -38,38 +38,38 @@ public class Thompson {
     
     public void concatenation(String r, String s){
         Node nodeS = new Node(s, secondNode, 0);
-        Node nodeR = new Node("", nodeS, 0);
+        Node nodeR = new Node("!", nodeS, 0);
         firstNode.setLeftLink(nodeR);
         firstNode.setLeftExpression(r);
     }
     
     public void union(String r, String s){
-        Node nodeRS = new Node("", secondNode, 0);
-        Node secondNodeR = new Node("", nodeRS, 0);
+        Node nodeRS = new Node("!", secondNode, 0);
+        Node secondNodeR = new Node("!", nodeRS, 0);
         Node firstNodeR = new Node(r, secondNodeR, 0);
-        Node secondNodeS = new Node("", nodeRS, 0);
+        Node secondNodeS = new Node("!", nodeRS, 0);
         Node firstNodeS = new Node(s, secondNodeS, 0);
         firstNode.setLeftLink(firstNodeR);
-        firstNode.setLeftExpression("");
+        firstNode.setLeftExpression("!");
         firstNode.setRightLink(firstNodeS);
-        firstNode.setRightExpression("");
+        firstNode.setRightExpression("!");
     }
     
     public void asterisk(String r){
-        Node secondNodeR = new Node("", null, "", secondNode, 0);
+        Node secondNodeR = new Node("!", null, "!", secondNode, 0);
         Node firstNodeR = new Node(r, secondNodeR, 0);
         secondNodeR.setLeftLink(firstNodeR);
-        firstNode.setLeftExpression("");
+        firstNode.setLeftExpression("!");
         firstNode.setLeftLink(firstNodeR);
-        firstNode.setRightExpression("");
+        firstNode.setRightExpression("!");
         firstNode.setRightLink(secondNode);
     }
     
     public void sum(String r){
-        Node secondNodeR = new Node("", null, "", secondNode, 0);
+        Node secondNodeR = new Node("!", null, "!", secondNode, 0);
         Node firstNodeR = new Node(r, secondNodeR, 0);
         secondNodeR.setLeftLink(firstNodeR);
-        firstNode.setLeftExpression("");
+        firstNode.setLeftExpression("!");
         firstNode.setLeftLink(firstNodeR);
     }
     
