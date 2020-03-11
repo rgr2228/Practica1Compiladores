@@ -7,7 +7,7 @@ package com.mycompany.practica1compiladorer;
 import java.util.ArrayList;
 /**
  *
- * @author Dulfary
+ * @author Raúl Gómez, Alejandro Gallego
  */
 public class Thompson {
     private Node firstNode;

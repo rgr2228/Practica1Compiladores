@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author Dulfary
+ * @authors Raúl Gómez, Alejandro Gallego
  */
 public class ToDeterministic {
     private Thompson thompson;

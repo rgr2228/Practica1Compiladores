@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author Dulfary
+ * @author Raúl Gómez, Alejandro Gallego
  */
 public class State {
     private int name=0;
