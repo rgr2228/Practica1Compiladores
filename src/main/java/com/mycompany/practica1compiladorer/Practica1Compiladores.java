@@ -13,13 +13,25 @@ public class Practica1Compiladores {
     
     public static void main(String[] args) {
         Thompson prueba = new Thompson(new Node("", null, "", null, 0), new Node("", null, "", null, 1));
-        prueba.asterisk("0");
+        prueba.union("0","1");
         ToDeterministic toDet = new ToDeterministic(prueba);
         toDet.setNodeNames(prueba.getFirstNode(), 1);
-        /*Prueba * y + */
+        /*for(int i =0;i<toDet.getNodeList().size();i++){
+            System.out.println("Nodos:" + toDet.getNodeList().get(i).getName() + "," + toDet.getNodeList().get(i).getState());
+        }*/
+        toDet.stateGenerator();
+        for(int i =0;i<toDet.getStates().size();i++){
+            System.out.println("Estados:"+toDet.getStates().get(i).getName() +","+toDet.getStates().get(i).getState());
+           for(int j=0;j<toDet.getStates().get(i).getNodes().size();j++){
+                System.out.println("Nodos estado "+(i+1)+":"+toDet.getStates().get(i).getNodes().get(j).getName());
+            }
+        }
+       
+        
+        /*Prueba * y + 
         Node test = prueba.getFirstNode().getRightLink();
         System.out.println("Imprima:"+test.getName() + "," + test.getState() + "," + test.getRightExpression());
-
+        */
         
         /* prueba concatenación y unión
         Node test = prueba.getFirstNode();
