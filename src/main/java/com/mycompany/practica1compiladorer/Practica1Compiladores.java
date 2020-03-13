@@ -13,7 +13,7 @@ public class Practica1Compiladores {
     
     public static void main(String[] args) {
         Thompson prueba = new Thompson(new Node("", null, "", null, 0), new Node("", null, "", null, 1));
-        prueba.union("0","1");
+        prueba.concatenation("0","1");
         ToDeterministic toDet = new ToDeterministic(prueba);
         toDet.setNodeNames(prueba.getFirstNode(), 1);
         /*for(int i =0;i<toDet.getNodeList().size();i++){
@@ -25,6 +25,11 @@ public class Practica1Compiladores {
            for(int j=0;j<toDet.getStates().get(i).getNodes().size();j++){
                 System.out.println("Nodos estado "+(i+1)+":"+toDet.getStates().get(i).getNodes().get(j).getName());
             }
+        }
+        toDet.transitionGenerator(toDet.getStates().get(0));
+        for(int i =0;i<toDet.getTransitions().size();i++){
+            System.out.println(toDet.getTransitions().get(i).getState().getName() + "," + toDet.getTransitions().get(i).getInputSymbol()+","+
+                    toDet.getTransitions().get(i).getGoTo().getName());
         }
        
         

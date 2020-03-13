@@ -16,6 +16,7 @@ public class ToDeterministic {
     private Thompson thompson;
     private List<Node> nodeList = new ArrayList<Node>();
     private List<State> states = new ArrayList<State>();
+    private List<Transititon> transitions = new ArrayList<Transititon>();
 
     public ToDeterministic(Thompson thompson) {
         this.thompson = thompson;
@@ -27,6 +28,10 @@ public class ToDeterministic {
 
     public List<State> getStates() {
         return states;
+    }
+
+    public List<Transititon> getTransitions() {
+        return transitions;
     }
     
     public int setNodeNames(Node n,int futureName){
@@ -68,14 +73,42 @@ public class ToDeterministic {
             State state = new State();
             state = this.findNull(state, nodeList.get(i));
             state.setName(i+1);
-            /*
-            for(int j = 0;j<state.getNodes().size();j++){
-                System.out.println("Estado"+(i+1)+":"+state.getNodes().get(j).getName());
-            }
-            System.out.println("Estado#:"+state.getName()+","+state.getState());*/
             states.add(state);
         }
     }
     
+    public State findStateByName(int name){
+        for(int i =0;i<states.size();i++){
+            if(states.get(i).getName()==name){
+                return states.get(i);
+            }
+        }
+        return null;
+    }
     
+    public State findSymbol(State s, String inputSymbol,State goTo){
+        for(int i =0;i<s.getNodes().size();i++){
+            if(s.getNodes().get(i).getLeftExpression().equals(inputSymbol)){
+                State goToAux = new State();
+                goToAux = this.findStateByName(s.getNodes().get(i).getLeftLink().getName());
+                goTo.getNodes().addAll(goToAux.getNodes());
+            }
+        }
+        return goTo;
+    }
+    
+    public void transitionGenerator(State s){
+        String inputSymbol= null;
+        List<String> readyTerms = new ArrayList<String>();
+        for(int i =0;i<s.getNodes().size();i++){
+            if((!readyTerms.contains(inputSymbol))&&(s.getNodes().get(i).getLeftLink()!=null)&&(!s.getNodes().get(i).getLeftExpression().equals("!"))){
+                State goTo = new State();
+                inputSymbol = s.getNodes().get(i).getLeftExpression();
+                goTo = this.findSymbol(s, inputSymbol,goTo);
+                transitions.add(new Transititon(s, inputSymbol, goTo));
+                readyTerms.add(inputSymbol);
+                this.transitionGenerator(goTo);
+            }
+        }
+    }
 }
