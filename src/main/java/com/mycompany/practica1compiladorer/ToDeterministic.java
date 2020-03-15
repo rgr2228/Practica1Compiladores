@@ -101,19 +101,21 @@ public class ToDeterministic {
         return goTo;
     }
     
-    public void transitionGenerator(State s){
+    public List<State> transitionGenerator(State s,List<State> readyStates){
         String inputSymbol= null;
         List<String> readyTerms = new ArrayList<String>();
         for(int i =0;i<s.getNodes().size();i++){
-            if((!readyTerms.contains(inputSymbol))&&(s.getNodes().get(i).getLeftLink()!=null)&&(!s.getNodes().get(i).getLeftExpression().equals("!"))){
+            if((!readyTerms.contains(inputSymbol))&&(!readyStates.contains(s))&&(s.getNodes().get(i).getLeftLink()!=null)&&(!s.getNodes().get(i).getLeftExpression().equals("!"))){
                 State goTo = new State();
                 inputSymbol = s.getNodes().get(i).getLeftExpression();
                 goTo = this.findSymbol(s, inputSymbol,goTo);
                 transitions.add(new Transititon(s, inputSymbol, goTo));
                 readyTerms.add(inputSymbol);
-                this.transitionGenerator(goTo);
+                readyStates.add(goTo);
+                readyStates = this.transitionGenerator(goTo,readyStates);
             }
             readyTerms.clear();
         }
+        return readyStates;
     }
 }

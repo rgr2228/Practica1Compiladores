@@ -5,6 +5,9 @@
  */
 package com.mycompany.practica1compiladorer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Raúl Gómez, Alejandro Gallego
@@ -13,7 +16,7 @@ public class Practica1Compiladores {
     
     public static void main(String[] args) {
         Thompson prueba = new Thompson(new Node("", null, "", null, 0), new Node("", null, "", null, 1));
-        prueba.union("0","1");
+        prueba.sum("0");
         ToDeterministic toDet = new ToDeterministic(prueba);
         toDet.setNodeNames(prueba.getFirstNode(), 1);
         /*for(int i =0;i<toDet.getNodeList().size();i++){
@@ -26,8 +29,8 @@ public class Practica1Compiladores {
                 System.out.println("Nodos estado "+(i+1)+":"+toDet.getStates().get(i).getNodes().get(j).getName());
             }
         }
-        
-        toDet.transitionGenerator(toDet.getStates().get(0));
+        List<State> readyStates = new ArrayList<State>();
+        toDet.transitionGenerator(toDet.getStates().get(0),readyStates);
         for(int k=0;k<toDet.getTransitions().get(0).getState().getNodes().size();k++){
                 System.out.println("Transición " +"ini" + "," + toDet.getTransitions().get(0).getState().getState()
                         + ":" + toDet.getTransitions().get(0).getState().getNodes().get(k).getName() );
