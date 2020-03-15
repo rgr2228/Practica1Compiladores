@@ -92,8 +92,12 @@ public class ToDeterministic {
                 State goToAux = new State();
                 goToAux = this.findStateByName(s.getNodes().get(i).getLeftLink().getName());
                 goTo.getNodes().addAll(goToAux.getNodes());
+                if(goToAux.getState()==1){
+                    goTo.setState(1);
+                }
             }
         }
+        goTo.setName(Integer.parseInt(inputSymbol));
         return goTo;
     }
     
@@ -109,6 +113,7 @@ public class ToDeterministic {
                 readyTerms.add(inputSymbol);
                 this.transitionGenerator(goTo);
             }
+            readyTerms.clear();
         }
     }
 }

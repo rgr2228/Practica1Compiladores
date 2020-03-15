@@ -7,7 +7,7 @@ package com.mycompany.practica1compiladorer;
 
 /**
  *
- * @author Dulfary
+ * @author Raúl Gómez, Alejandro Gallego
  */
 public class Transititon {
     private State state;

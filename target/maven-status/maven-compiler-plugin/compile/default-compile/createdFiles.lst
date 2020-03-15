@@ -2,3 +2,5 @@ com\mycompany\practica1compiladorer\Node.class
 com\mycompany\practica1compiladorer\Practica1Compiladores.class
 com\mycompany\practica1compiladorer\Thompson.class
 com\mycompany\practica1compiladorer\ToDeterministic.class
+com\mycompany\practica1compiladorer\Transititon.class
+com\mycompany\practica1compiladorer\State.class

@@ -13,7 +13,7 @@ public class Practica1Compiladores {
     
     public static void main(String[] args) {
         Thompson prueba = new Thompson(new Node("", null, "", null, 0), new Node("", null, "", null, 1));
-        prueba.concatenation("0","1");
+        prueba.union("0","1");
         ToDeterministic toDet = new ToDeterministic(prueba);
         toDet.setNodeNames(prueba.getFirstNode(), 1);
         /*for(int i =0;i<toDet.getNodeList().size();i++){
@@ -26,41 +26,17 @@ public class Practica1Compiladores {
                 System.out.println("Nodos estado "+(i+1)+":"+toDet.getStates().get(i).getNodes().get(j).getName());
             }
         }
+        
         toDet.transitionGenerator(toDet.getStates().get(0));
+        for(int k=0;k<toDet.getTransitions().get(0).getState().getNodes().size();k++){
+                System.out.println("Transición " +"ini" + "," + toDet.getTransitions().get(0).getState().getState()
+                        + ":" + toDet.getTransitions().get(0).getState().getNodes().get(k).getName() );
+            }
         for(int i =0;i<toDet.getTransitions().size();i++){
-            System.out.println(toDet.getTransitions().get(i).getState().getName() + "," + toDet.getTransitions().get(i).getInputSymbol()+","+
-                    toDet.getTransitions().get(i).getGoTo().getName());
+            for(int j=0;j<toDet.getTransitions().get(i).getGoTo().getNodes().size();j++){
+                System.out.println("Transición " +i + "," + toDet.getTransitions().get(i).getGoTo().getState()
+                        + ":" + toDet.getTransitions().get(i).getGoTo().getNodes().get(j).getName() );
+            }
         }
-       
-        
-        /*Prueba * y + 
-        Node test = prueba.getFirstNode().getRightLink();
-        System.out.println("Imprima:"+test.getName() + "," + test.getState() + "," + test.getRightExpression());
-        */
-        
-        /* prueba concatenación y unión
-        Node test = prueba.getFirstNode();
-        while(test!=null){
-            System.out.println("Lado izquierdo:"+test.getName() + "," + test.getState() + "," + test.getLeftExpression());
-            test = test.getLeftLink();
-        }
-        test = prueba.getFirstNode();
-        System.out.println("Lado derecho:"+test.getName() + "," + test.getState() + "," + test.getRightExpression());
-        test = test.getRightLink();
-        while(test!=null){
-            System.out.println("Lado derecho:"+test.getName() + "," + test.getState() + "," + test.getLeftExpression());
-            test = test.getLeftLink();
-        }*/
-        
-        /*
-        prueba.sum("0+12");
-        Thompson prueba2 = new Thompson(prueba.getFirstNode().getLeftLink(), prueba.getFirstNode().getLeftLink().getLeftLink());
-        prueba2.concatenation("0", "12");
-        Thompson prueba3= new Thompson(prueba.getFirstNode().getLeftLink().getLeftLink().getLeftLink(),
-                              prueba.getFirstNode().getLeftLink().getLeftLink().getLeftLink().getLeftLink());
-        prueba3.union("1", "2");
-        System.out.println("imprima:"+prueba.getFirstNode().getLeftLink().getLeftLink().getLeftLink().getLeftLink()
-        .getLeftLink().getLeftLink().getLeftLink().getLeftLink().getLeftExpression());*/
     }
-    
 }
