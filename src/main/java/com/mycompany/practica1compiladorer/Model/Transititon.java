@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.practica1compiladorer;
+package com.mycompany.practica1compiladorer.Model;
+
+import com.mycompany.practica1compiladorer.Model.State;
 
 /**
  *

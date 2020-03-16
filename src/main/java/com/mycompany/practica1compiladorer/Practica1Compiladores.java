@@ -5,6 +5,11 @@
  */
 package com.mycompany.practica1compiladorer;
 
+import com.mycompany.practica1compiladorer.Logic.ToDeterministic;
+import com.mycompany.practica1compiladorer.Model.Node;
+import com.mycompany.practica1compiladorer.Model.State;
+import com.mycompany.practica1compiladorer.Logic.Thompson;
+
 import java.util.ArrayList;
 import java.util.List;
 

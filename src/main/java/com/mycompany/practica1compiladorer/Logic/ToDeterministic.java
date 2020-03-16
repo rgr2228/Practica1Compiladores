@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.practica1compiladorer;
+package com.mycompany.practica1compiladorer.Logic;
+
+import com.mycompany.practica1compiladorer.Model.Node;
+import com.mycompany.practica1compiladorer.Model.State;
+import com.mycompany.practica1compiladorer.Model.Transititon;
 
 import java.util.ArrayList;
 import java.util.List;
