@@ -16,7 +16,7 @@ public class Practica1Compiladores {
     
     public static void main(String[] args) {
         Thompson prueba = new Thompson(new Node("", null, "", null, 0), new Node("", null, "", null, 1));
-        prueba.union("0","1");
+        prueba.sum("0");
         ToDeterministic toDet = new ToDeterministic(prueba);
         toDet.setNodeNames(prueba.getFirstNode(), 1);
         /*for(int i =0;i<toDet.getNodeList().size();i++){
