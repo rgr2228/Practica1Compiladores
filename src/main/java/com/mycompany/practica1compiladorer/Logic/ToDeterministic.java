@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.practica1compiladorer;
+package com.mycompany.practica1compiladorer.Logic;
+
+import com.mycompany.practica1compiladorer.Model.Node;
+import com.mycompany.practica1compiladorer.Model.State;
+import com.mycompany.practica1compiladorer.Model.Transititon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +21,7 @@ public class ToDeterministic {
     private List<Node> nodeList = new ArrayList<Node>();
     private List<State> states = new ArrayList<State>();
     private List<Transititon> transitions = new ArrayList<Transititon>();
+    int finalName=1;
 
     public ToDeterministic(Thompson thompson) {
         this.thompson = thompson;
@@ -97,7 +102,7 @@ public class ToDeterministic {
                 }
             }
         }
-        goTo.setName(Integer.parseInt(inputSymbol));
+        //goTo.setName(Integer.parseInt(inputSymbol));
         return goTo;
     }
     
@@ -109,6 +114,8 @@ public class ToDeterministic {
                 State goTo = new State();
                 inputSymbol = s.getNodes().get(i).getLeftExpression();
                 goTo = this.findSymbol(s, inputSymbol,goTo);
+                finalName=finalName+1;
+                goTo.setName(finalName);
                 transitions.add(new Transititon(s, inputSymbol, goTo));
                 readyTerms.add(inputSymbol);
                 readyStates.add(goTo);

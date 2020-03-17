@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.practica1compiladorer;
-import java.util.ArrayList;
+package com.mycompany.practica1compiladorer.Logic;
+import com.mycompany.practica1compiladorer.Model.Node;
+
 /**
  *
  * @author Raúl Gómez, Alejandro Gallego
