@@ -93,41 +93,41 @@ public class Practica1Compiladores {
             System.out.print("Fin:"+trans.getGoTo().getName()+", ");
             System.out.println("Estado:"+trans.getState().getState());
         }
-        String[][] matriz = new String[2+auxTerms.size()][1+auxStates.size()];
+        String[][] matriz = new String[1+auxStates.size()][2+auxTerms.size()];
         matriz[0][0]="Estado";
         int head =0;
         while(head<auxTerms.size()){
-            matriz[head+1][0]=auxTerms.get(head);
+            matriz[0][head+1]=auxTerms.get(head);
             head++;
         }
-        matriz[head+1][0]="Aceptación?";
+        matriz[0][head+1]="Aceptación?";
         for(int s =0;s<auxStates.size();s++){
             for(int t =0;t<toDet.getTransitions().size();t++){
                 if(toDet.getTransitions().get(t).getState().equals(auxStates.get(s))){
-                    matriz[0][s+1]= String.valueOf(toDet.getTransitions().get(t).getState().getName());
-                    matriz[1+auxTerms.size()][s+1]= String.valueOf(toDet.getTransitions().get(t).getState().getState());
+                    matriz[s+1][0]= String.valueOf(toDet.getTransitions().get(t).getState().getName());
+                    matriz[s+1][1+auxTerms.size()]= String.valueOf(toDet.getTransitions().get(t).getState().getState());
                     for(int header=1;header<(1+auxTerms.size());header++){
-                        if(matriz[header][0].equals(toDet.getTransitions().get(t).getInputSymbol())){
-                            matriz[header][s+1]=String.valueOf(toDet.getTransitions().get(t).getGoTo().getName());
+                        if(matriz[0][header].equals(toDet.getTransitions().get(t).getInputSymbol())){
+                            matriz[s+1][header]=String.valueOf(toDet.getTransitions().get(t).getGoTo().getName());
                         }
                     }
                 }
             }
         }
+        for(int header2=0;header2<(1+auxStates.size());header2++){
+            for(int header=0;header<(2+auxTerms.size());header++){
+                System.out.println("header "+header2+":"+matriz[header2][header]);
+            }
+        }
+        
         String titles[] = new String[(2+auxTerms.size())];
         for(int tlt=0;tlt<(2+auxTerms.size());tlt++){
             titles[tlt]=matriz[tlt][0];
         }
-        
-        for(int header2=0;header2<(1+auxStates.size());header2++){
-            for(int header=0;header<(2+auxTerms.size());header++){
-                System.out.println("header "+header2+":"+matriz[header][header2]);
-            }
-        }
          
-       /*FiniteAutomat principal=new FiniteAutomat(matriz,titles);
-        principal.setLocationRelativeTo(null);
-        principal.setTitle("Autómata");
-        principal.setVisible(true);*/
+       FiniteAutomat af=new FiniteAutomat(matriz,titles);
+        af.setLocationRelativeTo(null);
+        af.setTitle("Autómata Finito");
+        af.setVisible(true);
     }
 }
