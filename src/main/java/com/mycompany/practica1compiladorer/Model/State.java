@@ -21,6 +21,11 @@ public class State {
 
     public State() {
     }
+    
+    public State(int name,int state){
+        this.name=name;
+        this.state=state;
+    }
 
     public int getName() {
         return name;

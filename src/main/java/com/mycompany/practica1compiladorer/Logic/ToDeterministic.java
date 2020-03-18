@@ -20,6 +20,7 @@ public class ToDeterministic {
     private Thompson thompson;
     private List<Node> nodeList = new ArrayList<Node>();
     private List<State> states = new ArrayList<State>();
+    private State errorState = new State(0,0);
     private List<Transititon> transitions = new ArrayList<Transititon>();
     int finalName=1;
 
@@ -102,7 +103,6 @@ public class ToDeterministic {
                 }
             }
         }
-        //goTo.setName(Integer.parseInt(inputSymbol));
         return goTo;
     }
     
@@ -114,9 +114,13 @@ public class ToDeterministic {
                 State goTo = new State();
                 inputSymbol = s.getNodes().get(i).getLeftExpression();
                 goTo = this.findSymbol(s, inputSymbol,goTo);
-                finalName=finalName+1;
-                goTo.setName(finalName);
-                transitions.add(new Transititon(s, inputSymbol, goTo));
+                if(s.getNodes().equals(goTo.getNodes()) && s.getState()==goTo.getState()){
+                    transitions.add(new Transititon(s, inputSymbol, s));
+                }else{
+                    finalName=finalName+1;
+                    goTo.setName(finalName);
+                    transitions.add(new Transititon(s, inputSymbol, goTo));
+                }
                 readyTerms.add(inputSymbol);
                 readyStates.add(goTo);
                 if(!readyStates.contains(s)){
@@ -126,5 +130,43 @@ public class ToDeterministic {
             readyTerms.clear();
         }
         return readyStates;
+    }
+    
+    public void noTransitions(List<State> st,List<String> names){
+        List<State> auxStates = new ArrayList<State>();
+        for(State forSt:st){
+            boolean verificator = false;
+            for(Transititon forTra:transitions){
+                if(forTra.getState().equals(forSt)){
+                    verificator=true;
+                }
+            }
+            if(verificator==false){
+                auxStates.add(forSt);
+            }            
+        }
+        if(auxStates.size()!=0){
+            for(String name:names){
+                for(State ax:auxStates){
+                    transitions.add(new Transititon(ax, name, errorState)); 
+                }
+            }
+        }
+    }
+    
+    public void goToError(List<State> st,List<String> names){
+        for(String name:names){
+            for(State ax:st){
+                boolean verificator=false;
+                for(Transititon forTra:transitions){
+                    if(forTra.getState().equals(ax) && forTra.getInputSymbol().equals(name)){
+                        verificator=true;
+                    }
+                }
+                if(verificator==false){
+                    transitions.add(new Transititon(ax, name, errorState)); 
+                }
+            }
+        }
     }
 }

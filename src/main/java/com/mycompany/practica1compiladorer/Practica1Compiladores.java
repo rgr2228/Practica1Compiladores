@@ -9,6 +9,7 @@ import com.mycompany.practica1compiladorer.Logic.RowRecognition;
 import com.mycompany.practica1compiladorer.Logic.ToDeterministic;
 import com.mycompany.practica1compiladorer.Model.Node;
 import com.mycompany.practica1compiladorer.Model.State;
+import com.mycompany.practica1compiladorer.Model.Transititon;
 import com.mycompany.practica1compiladorer.Logic.Thompson;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class Practica1Compiladores {
         System.out.println("final:"+finalSeq);*/
         
         Thompson prueba = new Thompson(new Node("", null, "", null, 0), new Node("", null, "", null, 1));
-        prueba.union("0","2");
+        prueba.union("0","1");
         Thompson prueba2 = new Thompson(prueba.getFirstNode().getLeftLink(),prueba.getFirstNode().getLeftLink().getLeftLink());
         prueba2.concatenation("0", "1");
         Thompson prueba3 = new Thompson(prueba.getFirstNode().getRightLink(),prueba.getFirstNode().getRightLink().getLeftLink());
@@ -53,10 +54,7 @@ public class Practica1Compiladores {
             }
         }
         List<State> readyStates = new ArrayList<State>();
-        readyStates = toDet.transitionGenerator(toDet.getStates().get(0),readyStates);
-        System.out.println("# Transiciones:"+toDet.getTransitions().size());
-        System.out.println("# Ready States:"+readyStates.size());
-        /*
+        toDet.transitionGenerator(toDet.getStates().get(0),readyStates);
         for(int k=0;k<toDet.getTransitions().get(0).getState().getNodes().size();k++){
                 System.out.println("Transición " +"ini" + "," + toDet.getTransitions().get(0).getState().getState()
                         + ":" + toDet.getTransitions().get(0).getState().getNodes().get(k).getName() );
@@ -68,13 +66,66 @@ public class Practica1Compiladores {
             }
             System.out.println("Llega:"+toDet.getTransitions().get(i).getInputSymbol());
         }
-        */
-        List<String> readyTerms = new ArrayList<String>();
+        List<String> auxTerms = new ArrayList<String>();
+        List<State> auxStates = new ArrayList<State>();
         for(int z=0;z<toDet.getTransitions().size();z++){
-         
+           if(!auxTerms.contains(toDet.getTransitions().get(z).getInputSymbol())){
+               auxTerms.add(toDet.getTransitions().get(z).getInputSymbol());
+           }
+        }
+        for(int z=0;z<toDet.getTransitions().size();z++){
+           if(!auxStates.contains(toDet.getTransitions().get(z).getState())){
+               auxStates.add(toDet.getTransitions().get(z).getState());
+           }
+           if(!auxStates.contains(toDet.getTransitions().get(z).getGoTo())){
+               auxStates.add(toDet.getTransitions().get(z).getGoTo());
+           }
+        }
+        System.out.println("# Transiciones:"+toDet.getTransitions().size());
+        toDet.noTransitions(auxStates,auxTerms);
+        toDet.goToError(auxStates, auxTerms);
+        System.out.println("# States:"+auxStates.size());
+        System.out.println("# Términos:"+auxTerms.size());
+        System.out.println("# Transiciones:"+toDet.getTransitions().size());
+        for(Transititon trans:toDet.getTransitions()){
+            System.out.print("Ini:"+trans.getState().getName()+", ");
+            System.out.print("Símbolo:"+trans.getInputSymbol()+", ");
+            System.out.print("Fin:"+trans.getGoTo().getName()+", ");
+            System.out.println("Estado:"+trans.getState().getState());
+        }
+        String[][] matriz = new String[2+auxTerms.size()][1+auxStates.size()];
+        matriz[0][0]="Estado";
+        int head =0;
+        while(head<auxTerms.size()){
+            matriz[head+1][0]=auxTerms.get(head);
+            head++;
+        }
+        matriz[head+1][0]="Aceptación?";
+        for(int s =0;s<auxStates.size();s++){
+            for(int t =0;t<toDet.getTransitions().size();t++){
+                if(toDet.getTransitions().get(t).getState().equals(auxStates.get(s))){
+                    matriz[0][s+1]= String.valueOf(toDet.getTransitions().get(t).getState().getName());
+                    matriz[1+auxTerms.size()][s+1]= String.valueOf(toDet.getTransitions().get(t).getState().getState());
+                    for(int header=1;header<(1+auxTerms.size());header++){
+                        if(matriz[header][0].equals(toDet.getTransitions().get(t).getInputSymbol())){
+                            matriz[header][s+1]=String.valueOf(toDet.getTransitions().get(t).getGoTo().getName());
+                        }
+                    }
+                }
+            }
+        }
+        String titles[] = new String[(2+auxTerms.size())];
+        for(int tlt=0;tlt<(2+auxTerms.size());tlt++){
+            titles[tlt]=matriz[tlt][0];
         }
         
-        /*FiniteAutomat principal=new FiniteAutomat(toDet.getTransitions());
+        for(int header2=0;header2<(1+auxStates.size());header2++){
+            for(int header=0;header<(2+auxTerms.size());header++){
+                System.out.println("header "+header2+":"+matriz[header][header2]);
+            }
+        }
+         
+       /*FiniteAutomat principal=new FiniteAutomat(matriz,titles);
         principal.setLocationRelativeTo(null);
         principal.setTitle("Autómata");
         principal.setVisible(true);*/
