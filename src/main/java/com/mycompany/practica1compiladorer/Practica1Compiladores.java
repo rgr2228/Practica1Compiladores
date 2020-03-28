@@ -23,8 +23,8 @@ import java.util.Stack;
 public class Practica1Compiladores {
     
     public static void main(String[] args) {
-        /*Stack<String> stack = new Stack<String>();
-        String testString="((((())))))()-";
+       /* Stack<String> stack = new Stack<String>();
+        String testString="-";
         boolean counter=RowRecognition.parenthesisCounter(testString);
         System.out.println("counter:"+counter);
         stack = RowRecognition.parenthesisOrder(testString,stack);
@@ -34,16 +34,21 @@ public class Practica1Compiladores {
         }else{
             System.out.println("order:true");
         }
-        //System.out.println("order:"+order);
         boolean finalSeq = RowRecognition.finalSequence(testString);
-        System.out.println("final:"+finalSeq);*/
+        System.out.println("final:"+finalSeq);
         
+        */
+       
+        String testString="GO|()|().a";
+        List<String> listS = new ArrayList<String>();
+        listS=RowRecognition.runRegex(testString, listS);
+        System.out.println("Saleeee");
+        for(String s : listS){
+            System.out.println("Dato:"+s);
+        }
+       /* 
         Thompson prueba = new Thompson(new Node("", null, "", null, 0), new Node("", null, "", null, 1));
-        prueba.union("0","1");
-        Thompson prueba2 = new Thompson(prueba.getFirstNode().getLeftLink(),prueba.getFirstNode().getLeftLink().getLeftLink());
-        prueba2.concatenation("0", "1");
-        Thompson prueba3 = new Thompson(prueba.getFirstNode().getRightLink(),prueba.getFirstNode().getRightLink().getLeftLink());
-        prueba3.concatenation("2", "3");
+        prueba.concatenation("GO","Paco");
         ToDeterministic toDet = new ToDeterministic(prueba);
         toDet.setNodeNames(prueba.getFirstNode(), 1);
         toDet.stateGenerator();
@@ -81,9 +86,12 @@ public class Practica1Compiladores {
                auxStates.add(toDet.getTransitions().get(z).getGoTo());
            }
         }
+        
         System.out.println("# Transiciones:"+toDet.getTransitions().size());
+        
         toDet.noTransitions(auxStates,auxTerms);
         toDet.goToError(auxStates, auxTerms);
+        
         System.out.println("# States:"+auxStates.size());
         System.out.println("# Términos:"+auxTerms.size());
         System.out.println("# Transiciones:"+toDet.getTransitions().size());
@@ -93,6 +101,7 @@ public class Practica1Compiladores {
             System.out.print("Fin:"+trans.getGoTo().getName()+", ");
             System.out.println("Estado:"+trans.getState().getState());
         }
+        
         String[][] matriz = new String[1+auxStates.size()][2+auxTerms.size()];
         matriz[0][0]="Estado";
         int head =0;
@@ -114,6 +123,8 @@ public class Practica1Compiladores {
                 }
             }
         }
+        
+        
         for(int header2=0;header2<(1+auxStates.size());header2++){
             for(int header=0;header<(2+auxTerms.size());header++){
                 System.out.println("header "+header2+":"+matriz[header2][header]);
@@ -124,10 +135,10 @@ public class Practica1Compiladores {
         for(int tlt=0;tlt<(2+auxTerms.size());tlt++){
             titles[tlt]=matriz[tlt][0];
         }
-         
+       
        FiniteAutomat af=new FiniteAutomat(matriz,titles);
         af.setLocationRelativeTo(null);
         af.setTitle("Autómata Finito");
-        af.setVisible(true);
+        af.setVisible(true);*/
     }
 }
