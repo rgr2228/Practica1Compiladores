@@ -5,6 +5,7 @@
  */
 package com.mycompany.practica1compiladorer.Logic;
 
+import com.mycompany.practica1compiladorer.Model.Node;
 import java.util.List;
 import java.util.Stack;
 /**
@@ -57,6 +58,17 @@ public class RowRecognition {
         return stack;
     }
     
+    public static boolean noSpaces(String s){
+        boolean spaces = false;
+        for(int i=0;i<s.length();i++){            
+            if(s.substring(i,i+1).isBlank()){
+                spaces=true;
+            }
+            
+        }
+        return spaces;
+    }
+        
     public static String runParenthesis(String s){
         Stack<String> stack = new Stack<>();
         String aux=  new String();
@@ -69,7 +81,11 @@ public class RowRecognition {
                 stack.push("(");
                 //System.out.println("Aquí");
             }
-            if((s.substring(i,i+1).equals("(")) && (stack.isEmpty())){
+            if((stack.isEmpty()) && ((s.substring(i,i+1).equals("*")) || (s.substring(i,i+1).equals("+")))){
+                aux=aux.concat(s.substring(i,i+1));
+                return aux;
+            }
+            if((stack.isEmpty())){
                 return aux;
             }
             if((!stack.isEmpty())&&(stack.lastElement().equals("("))&&(s.substring(i,i+1).equals(")"))){
@@ -88,26 +104,36 @@ public class RowRecognition {
     public static List<String> runRegex(String s, List<String> listS){
         int i =0;
         if((s.substring(s.length()-1,s.length()).equals("|")|| s.substring(s.length()-1,s.length()).equals("."))||(s.substring(0,1).equals("|")|| s.substring(0,1).equals("."))){
-            System.out.println("Error");
+            System.out.println("Secuencia inválida1");
+            listS.clear();
             return listS;
         }
-        else{
-            while(i<s.length()){
+        while(i<s.length()){
             if((s.substring(i,i+1).equals("|") || s.substring(i,i+1).equals("."))){
                 listS.add(s.substring(0,i));
                 listS.add(s.substring(i,i+1));
                 listS = RowRecognition.runRegex(s.substring(i+1,s.length()), listS);
                 return listS;
             }
-            if(s.substring(i, i+1).equals("(")){
+            if(s.substring(i,i+1).equals("(")){
+                if(i!=0 && !s.substring(i-1,i).equals(null)){
+                    System.out.println("Secuencia inválida 2");
+                    listS.clear();
+                    return listS;
+                }
                 String aux= RowRecognition.runParenthesis(s.substring(i,s.length()));
                 listS.add(aux);
                 i=i+aux.length();
-                //System.out.println("i:"+i+", len:"+s.length());
                 if(i<s.length()){
-                    listS.add(s.substring(i,i+1));
-                    listS = RowRecognition.runRegex(s.substring(i+1,s.length()), listS);
-                    return listS;
+                    if(s.substring(i,i+1).equals("|") || s.substring(i,i+1).equals(".")){
+                        listS.add(s.substring(i,i+1));
+                        listS = RowRecognition.runRegex(s.substring(i+1,s.length()), listS);
+                        return listS;
+                    }else{
+                        System.out.println("Secuencia inválida 3");
+                        listS.clear();
+                        return listS;
+                    }
                 }else{
                     return listS;
                 }
@@ -116,6 +142,50 @@ public class RowRecognition {
         }
         listS.add(s.substring(0,s.length()));
         return listS;
-        }
     }
+    
+    /*public static List<String> runRegex(String s, List<String> listS){
+        int i =0;
+        if((s.substring(s.length()-1,s.length()).equals("|")|| s.substring(s.length()-1,s.length()).equals("."))||(s.substring(0,1).equals("|")|| s.substring(0,1).equals("."))){
+            System.out.println("Error");
+            return listS;
+        }
+        else{
+            while(i<s.length()){
+                if((s.substring(i,i+1).equals("|") || s.substring(i,i+1).equals("."))){
+                    listS.add(s.substring(0,i));
+                    listS.add(s.substring(i,i+1));
+                    listS = RowRecognition.runRegex(s.substring(i+1,s.length()), listS);
+                    return listS;
+                }
+                if(s.substring(i, i+1).equals("(")){
+                    if(i!=0 && !s.substring(i-1,i).equals(null)){
+                        System.out.println("error?");
+                        return listS;
+                    }
+                    String aux= RowRecognition.runParenthesis(s.substring(i,s.length()));
+                    listS.add(aux);
+                    i=i+aux.length();
+                    //System.out.println("i:"+i+", len:"+s.length());
+                    if(i<s.length()){
+                        if(s.substring(i,i+1).equals("|") || s.substring(i,i+1).equals(".")){
+                            System.out.println("acá");
+                            listS.add(s.substring(i,i+1));
+                            listS = RowRecognition.runRegex(s.substring(i+1,s.length()), listS);
+                            return listS;
+                        }else{
+                            System.out.println("Errooooor");
+                            return listS;
+                        }
+                    }else{
+                        return listS;
+                    }
+                }
+            i++;
+        }
+        //System.out.println("prueba:"+s.substring(0,s.length()));
+        listS.add(s.substring(0,s.length()));
+        return listS;
+        }
+    }*/    
 }

@@ -39,16 +39,22 @@ public class Practica1Compiladores {
         
         */
        
-        String testString="GO|()|().a";
+        String testString="(a.b|c).d";
+        boolean testBool =RowRecognition.noSpaces(testString);
+        System.out.println(testBool);
         List<String> listS = new ArrayList<String>();
         listS=RowRecognition.runRegex(testString, listS);
         System.out.println("Saleeee");
         for(String s : listS){
             System.out.println("Dato:"+s);
         }
-       /* 
+        
+        
         Thompson prueba = new Thompson(new Node("", null, "", null, 0), new Node("", null, "", null, 1));
-        prueba.concatenation("GO","Paco");
+        prueba.regexOperator(listS);
+        /*
+        Thompson prueba = new Thompson(new Node("", null, "", null, 0), new Node("", null, "", null, 1));
+        prueba.union("GO","Paco");*/
         ToDeterministic toDet = new ToDeterministic(prueba);
         toDet.setNodeNames(prueba.getFirstNode(), 1);
         toDet.stateGenerator();
@@ -139,6 +145,6 @@ public class Practica1Compiladores {
        FiniteAutomat af=new FiniteAutomat(matriz,titles);
         af.setLocationRelativeTo(null);
         af.setTitle("Autómata Finito");
-        af.setVisible(true);*/
+        af.setVisible(true);
     }
 }

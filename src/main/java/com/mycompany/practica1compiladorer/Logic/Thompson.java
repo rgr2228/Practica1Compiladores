@@ -5,6 +5,8 @@
  */
 package com.mycompany.practica1compiladorer.Logic;
 import com.mycompany.practica1compiladorer.Model.Node;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -74,4 +76,16 @@ public class Thompson {
         firstNode.setLeftLink(firstNodeR);
     }
     
+    public void regexOperator(List<String> listS){
+        String aux = new String();
+        for(int i =0;i<listS.size()-2;i++){
+            aux=aux.concat(listS.get(i));
+        }        
+        if(listS.get(listS.size()-2).equals("|")){
+           this.union(aux,listS.get(listS.size()-1) );
+        }
+        if(listS.get(listS.size()-2).equals(".")){
+            this.concatenation(aux,listS.get(listS.size()-1));
+        }
+    }
 }
