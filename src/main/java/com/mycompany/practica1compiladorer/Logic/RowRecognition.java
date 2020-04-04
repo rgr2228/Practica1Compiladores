@@ -6,6 +6,7 @@
 package com.mycompany.practica1compiladorer.Logic;
 
 import com.mycompany.practica1compiladorer.Model.Node;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 /**
@@ -16,13 +17,14 @@ import java.util.Stack;
  */
 public class RowRecognition {
     
-    public static boolean finalSequence(String s){
+    public static String finalSequence(String s){
         for(int i =0;i<s.length();i++){
             if(s.substring(i,i+1).equals("-")){
-                return true;
+                System.out.println("final sequence:"+s.substring(0,i));
+                return s.substring(0,i);
             }
         }
-        return false;
+        return null;
     }
 
     public static boolean parenthesisCounter(String s){
@@ -144,48 +146,24 @@ public class RowRecognition {
         return listS;
     }
     
-    /*public static List<String> runRegex(String s, List<String> listS){
-        int i =0;
-        if((s.substring(s.length()-1,s.length()).equals("|")|| s.substring(s.length()-1,s.length()).equals("."))||(s.substring(0,1).equals("|")|| s.substring(0,1).equals("."))){
-            System.out.println("Error");
-            return listS;
-        }
-        else{
-            while(i<s.length()){
-                if((s.substring(i,i+1).equals("|") || s.substring(i,i+1).equals("."))){
-                    listS.add(s.substring(0,i));
-                    listS.add(s.substring(i,i+1));
-                    listS = RowRecognition.runRegex(s.substring(i+1,s.length()), listS);
-                    return listS;
-                }
-                if(s.substring(i, i+1).equals("(")){
-                    if(i!=0 && !s.substring(i-1,i).equals(null)){
-                        System.out.println("error?");
-                        return listS;
+    public static void runRegexLevel(List<String> listS){
+        System.out.println("Nuevo nivel interno");
+        if(listS.size()==1){
+            System.out.println("Fondo:"+listS.get(0));
+        }else{
+            for(String prueba : listS){
+                System.out.println("Prueba:"+prueba);
+                if(!(prueba.equals(".")) && !(prueba.equals("|"))){
+                    List<String> pruebas = new ArrayList<String>();
+                    if(prueba.substring(0,1).equals("(") && prueba.substring(prueba.length()-1).equals(")")){
+                        prueba = prueba.substring(1, prueba.length()-1);
+                        //System.out.println("Prueba sin paréntesis:"+prueba);
                     }
-                    String aux= RowRecognition.runParenthesis(s.substring(i,s.length()));
-                    listS.add(aux);
-                    i=i+aux.length();
-                    //System.out.println("i:"+i+", len:"+s.length());
-                    if(i<s.length()){
-                        if(s.substring(i,i+1).equals("|") || s.substring(i,i+1).equals(".")){
-                            System.out.println("acá");
-                            listS.add(s.substring(i,i+1));
-                            listS = RowRecognition.runRegex(s.substring(i+1,s.length()), listS);
-                            return listS;
-                        }else{
-                            System.out.println("Errooooor");
-                            return listS;
-                        }
-                    }else{
-                        return listS;
-                    }
+                    pruebas = RowRecognition.runRegex(prueba, pruebas);
+                    RowRecognition.runRegexLevel(pruebas);
                 }
-            i++;
+                System.out.println("Nuevo dato mismo nivel");
+            }
         }
-        //System.out.println("prueba:"+s.substring(0,s.length()));
-        listS.add(s.substring(0,s.length()));
-        return listS;
-        }
-    }*/    
+    }
 }
