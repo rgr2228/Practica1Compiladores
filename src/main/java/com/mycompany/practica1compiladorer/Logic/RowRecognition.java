@@ -149,8 +149,26 @@ public class RowRecognition {
     public static void runRegexLevel(List<String> listS){
         System.out.println("Nuevo nivel interno");
         if(listS.size()==1){
-            System.out.println("Fondo:"+listS.get(0));
+            if(listS.get(0).substring(0,1).equals("(") && listS.get(0).substring(listS.get(0).length()-1).equals(")")){
+                String aux2= listS.get(0).substring(1,listS.get(0).length()-1);
+                listS.clear();
+                listS.add(aux2);
+            }
+            if((listS.get(0).substring(listS.get(0).length()-1).equals("*") || listS.get(0).substring(listS.get(0).length()-1).equals("+"))
+                    && listS.get(0).length()>1){
+                String aux = listS.get(0);
+                listS.clear();
+                listS.add(aux.substring(0,aux.length()-1));
+                listS.add(aux.substring(aux.length()-1));
+                System.out.println("¿Qué agregué?:"+aux.substring(0,aux.length()-1)+","+aux.substring(aux.length()-1)+","+listS.size());
+                RowRecognition.runRegexLevel(listS);
+            }else{
+                System.out.println("Fondo:"+listS.get(0));
+            }
         }else{
+            for(String prueba : listS){
+                
+            }
             for(String prueba : listS){
                 System.out.println("Prueba:"+prueba);
                 if(!(prueba.equals(".")) && !(prueba.equals("|"))){
