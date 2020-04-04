@@ -11,10 +11,10 @@ import com.mycompany.practica1compiladorer.Model.Node;
 import com.mycompany.practica1compiladorer.Model.State;
 import com.mycompany.practica1compiladorer.Model.Transititon;
 import com.mycompany.practica1compiladorer.Logic.Thompson;
+import com.mycompany.practica1compiladorer.Utils.ExpressionConverter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 /**
  *
@@ -23,6 +23,25 @@ import java.util.Stack;
 public class Practica1Compiladores {
     
     public static void main(String[] args) {
+
+
+        ExpressionConverter ev1 = new ExpressionConverter();
+
+//        String infixExpression = "(a.b|c)*.d";
+//        String infixExpression = "((1|0.1)*|1)+";
+//        String infixExpression = "c.x|a+.b+.c";
+        String infixExpression = "c.x|a+.b+.c";
+//        String infixExpression = "A|((B*.(C|D)+).((((((A.X)|(X.Y)+)*.E).F)|H+)+.G)*)";
+//        String infixExpression = "A|B*.(C|D)+.(((A.X|(X.Y)+)*.E.F|H+)+.G)*";
+//        String infixExpression = "(G.O|G.O.T.O|T.O.O|O.N)*.O.N.T.O.O";
+//        String infixExpression = "((G.O)|(G.O.T.O)|(T.O.O)|(O.N))*.(O.N).(T.O.O)";
+        System.out.println("Infix Expression: " + infixExpression);
+
+        String prefixExpression1 = ev1.infixToPrefix(infixExpression);
+        System.out.println("\n**Prefix Expression: " + prefixExpression1);
+        String prefixExpression1ToInfix = ev1.prefixToInfix(prefixExpression1);
+        System.out.println("**Infix Expression: " + prefixExpression1ToInfix);
+
        /* Stack<String> stack = new Stack<String>();
         String testString="-";
         boolean counter=RowRecognition.parenthesisCounter(testString);
