@@ -6,6 +6,7 @@
 package com.mycompany.practica1compiladorer.Logic;
 
 import com.mycompany.practica1compiladorer.Model.Node;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 /**
@@ -143,5 +144,26 @@ public class RowRecognition {
         }
         listS.add(s.substring(0,s.length()));
         return listS;
-    }   
+    }
+    
+    public static void runRegexLevel(List<String> listS){
+        System.out.println("Nuevo nivel interno");
+        if(listS.size()==1){
+            System.out.println("Fondo:"+listS.get(0));
+        }else{
+            for(String prueba : listS){
+                System.out.println("Prueba:"+prueba);
+                if(!(prueba.equals(".")) && !(prueba.equals("|"))){
+                    List<String> pruebas = new ArrayList<String>();
+                    if(prueba.substring(0,1).equals("(") && prueba.substring(prueba.length()-1).equals(")")){
+                        prueba = prueba.substring(1, prueba.length()-1);
+                        //System.out.println("Prueba sin paréntesis:"+prueba);
+                    }
+                    pruebas = RowRecognition.runRegex(prueba, pruebas);
+                    RowRecognition.runRegexLevel(pruebas);
+                }
+                System.out.println("Nuevo dato mismo nivel");
+            }
+        }
+    }
 }

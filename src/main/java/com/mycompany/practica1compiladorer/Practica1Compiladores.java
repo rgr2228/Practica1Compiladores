@@ -24,7 +24,7 @@ public class Practica1Compiladores {
     
     public static void main(String[] args) {
         Stack<String> stack = new Stack<String>();
-        String testString="ON.(GO|GOTO)-";
+        String testString="(a|(b.c))|d*-";
         boolean counter=RowRecognition.parenthesisCounter(testString);
         System.out.println("counter:"+counter);
         stack = RowRecognition.parenthesisOrder(testString,stack);
@@ -46,17 +46,7 @@ public class Practica1Compiladores {
         }
         System.out.println("Nuevo nivel");
         //PARTE DE PRUEBA
-        for(String prueba : listS){
-            System.out.println("Prueba:"+prueba);
-            if(!(prueba.equals(".")) && !(prueba.equals("|"))){
-                List<String> pruebas = new ArrayList<String>();
-                pruebas = RowRecognition.runRegex(prueba, pruebas);
-                for(String s : pruebas){
-                    System.out.println("nuevo:"+s);
-                }
-                System.out.println("Nuevo nivel interno");
-            }
-        }
+        RowRecognition.runRegexLevel(listS);
         
         
         /*
