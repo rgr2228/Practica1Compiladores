@@ -78,14 +78,24 @@ public class Thompson {
     
     public void regexOperator(List<String> listS){
         String aux = new String();
-        for(int i =0;i<listS.size()-2;i++){
-            aux=aux.concat(listS.get(i));
-        }        
-        if(listS.get(listS.size()-2).equals("|")){
-           this.union(aux,listS.get(listS.size()-1) );
-        }
-        if(listS.get(listS.size()-2).equals(".")){
-            this.concatenation(aux,listS.get(listS.size()-1));
+        if(listS.size()==1){
+            aux= listS.get(0);
+            if(aux.substring(aux.length()-1).equals("*")){
+               this.asterisk(aux.substring(0,aux.length()-1));
+            }
+            if(aux.substring(aux.length()-1).equals("+")){
+               this.sum(aux.substring(0,aux.length()-1)); 
+            }
+        }else{
+            for(int i =0;i<listS.size()-2;i++){
+                aux=aux.concat(listS.get(i));
+            }        
+            if(listS.get(listS.size()-2).equals("|")){
+               this.union(aux,listS.get(listS.size()-1) );
+            }
+            if(listS.get(listS.size()-2).equals(".")){
+                this.concatenation(aux,listS.get(listS.size()-1));
+            }
         }
     }
 }
