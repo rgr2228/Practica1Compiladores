@@ -5,32 +5,28 @@
  */
 package com.mycompany.practica1compiladorer;
 
-import com.mycompany.practica1compiladorer.Logic.RowRecognition;
-import com.mycompany.practica1compiladorer.Logic.ToDeterministic;
-import com.mycompany.practica1compiladorer.Model.Node;
-import com.mycompany.practica1compiladorer.Model.State;
-import com.mycompany.practica1compiladorer.Model.Transititon;
-import com.mycompany.practica1compiladorer.Logic.Thompson;
+
 import com.mycompany.practica1compiladorer.Utils.ExpressionConverter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- *
  * @author Raúl Gómez, Alejandro Gallego
  */
 public class Practica1Compiladores {
-    
+
     public static void main(String[] args) {
         ExpressionConverter ev1 = new ExpressionConverter();
 
 //        String infixExpression = "(a.b|c)*.d";
-//        String infixExpression = "((1|0.1)*|1)+";
-        String infixExpression = "A|((B*.(C|D)+).((((((A.X)|(X.Y)+)*.E).F)|H+)+.G)*)";
+        String infixExpression = "((1|0.1)*|1)+.(1|0.1)*";
+//        String infixExpression = "a|(b.c)";
+//        String infixExpression = "c.x|a+.b+.c";
+//        String infixExpression = "A|((B*.(C|D)+).((((((A.X)|(X.Y)+)*.E).F)|H+)+.G)*)";
         System.out.println("Infix Expression: " + infixExpression);
 
         String prefixExpression1 = ev1.infixToPrefix(infixExpression);
+//        String prefixExpression1 = "|a.bc";
+
+        String a = addParenthesis(prefixExpression1);
         System.out.println("\n**Prefix Expression: " + prefixExpression1);
 
         /* Stack<String> stack = new Stack<String>();
@@ -160,6 +156,51 @@ public class Practica1Compiladores {
             af.setTitle("Autómata Finito");
             af.setVisible(true);
         }*/
+    }
+
+    private static boolean isOperator(char c) {
+        switch (c) {
+            case '.':
+            case '|':
+            case '+':
+            case '*':
+            case '(':
+            case ')':
+                return true;
+            default:
+                return false;
+        }
 
     }
+
+    public static String addParenthesis(String expression) {
+        String copyExpression = expression;
+        String endOut = "";
+        String startOut = "";
+        char c;
+        while (copyExpression.length() >= 1) {
+            c = copyExpression.charAt(0);
+            if (c == '|' || c == '.') {
+//                if (copyExpression.length() > 1 && !isOperator(copyExpression.substring(0, 2).charAt(1)) && !isOperator(endOut.charAt(0))) {
+//                    String aux = endOut.charAt(0) + "";
+//                    endOut = endOut.substring(1);
+//                    endOut = "(" + copyExpression.substring(0, 2) + aux + ")" + endOut;
+//                    copyExpression = copyExpression.substring(2);
+//                } else {
+                    startOut = startOut + "(" + c;
+                    endOut = copyExpression.charAt(copyExpression.length() - 1) + ")" + endOut;
+                    copyExpression = copyExpression.substring(1, copyExpression.length() - 1);
+//                }
+            } else if (c == '+' || c == '*') {
+                startOut = startOut + "(" + c;
+                endOut = ")" + endOut;
+                copyExpression = copyExpression.substring(1);
+            } else {
+                startOut = startOut + c;
+                copyExpression = copyExpression.substring(1);
+            }
+        }
+        return startOut + endOut;
+    }
+
 }
