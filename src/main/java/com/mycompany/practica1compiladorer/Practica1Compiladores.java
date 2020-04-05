@@ -7,6 +7,11 @@ package com.mycompany.practica1compiladorer;
 
 
 import com.mycompany.practica1compiladorer.Utils.ExpressionConverter;
+import com.mycompany.practica1compiladorer.Utils.FormatRegex;
+import com.mycompany.practica1compiladorer.Utils.RegExConverter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Raúl Gómez, Alejandro Gallego
@@ -16,18 +21,23 @@ public class Practica1Compiladores {
     public static void main(String[] args) {
         ExpressionConverter ev1 = new ExpressionConverter();
 
-//        String infixExpression = "(a.b|c)*.d";
-        String infixExpression = "((1|0.1)*|1)+.(1|0.1)*";
-//        String infixExpression = "a|(b.c)";
-//        String infixExpression = "c.x|a+.b+.c";
-//        String infixExpression = "A|((B*.(C|D)+).((((((A.X)|(X.Y)+)*.E).F)|H+)+.G)*)";
-        System.out.println("Infix Expression: " + infixExpression);
+        List<String> expressions = new ArrayList<>();
+        expressions.add("(a.b|c)*.d");
+        expressions.add("((1|0.1)*|1)+.(1|0.1)*");
+        expressions.add("((1|01)*|1)+");
+        expressions.add("(GO|GOTO|TOO|ON)*ON.TOO");
+        expressions.add("a|(b.c)");
+        expressions.add("bc|a");
+        expressions.add("c.x|a+.b+.c");
+        expressions.add("A|((B*.(C|D)+).((((((A.X)|(X.Y)+)*.E).F)|H+)+.G)*)");
 
-        String prefixExpression1 = ev1.infixToPrefix(infixExpression);
-//        String prefixExpression1 = "|a.bc";
-
-        String a = addParenthesis(prefixExpression1);
-        System.out.println("\n**Prefix Expression: " + prefixExpression1);
+        for (String expression : expressions) {
+            String postFixExp = RegExConverter.infixToPostfix(expression);
+            String aux = FormatRegex.addParenthesis(postFixExp, postFixExp.length() - 1);
+            System.out.println("Infix Expression: " + expression
+                    + "\nPostfix Expression: " + postFixExp
+                    + "\nOrder postfix Expression: " + aux+"\n");
+        }
 
         /* Stack<String> stack = new Stack<String>();
         String testString="-";
@@ -158,21 +168,6 @@ public class Practica1Compiladores {
         }*/
     }
 
-    private static boolean isOperator(char c) {
-        switch (c) {
-            case '.':
-            case '|':
-            case '+':
-            case '*':
-            case '(':
-            case ')':
-                return true;
-            default:
-                return false;
-        }
-
-    }
-
     public static String addParenthesis(String expression) {
         String copyExpression = expression;
         String endOut = "";
@@ -187,9 +182,9 @@ public class Practica1Compiladores {
 //                    endOut = "(" + copyExpression.substring(0, 2) + aux + ")" + endOut;
 //                    copyExpression = copyExpression.substring(2);
 //                } else {
-                    startOut = startOut + "(" + c;
-                    endOut = copyExpression.charAt(copyExpression.length() - 1) + ")" + endOut;
-                    copyExpression = copyExpression.substring(1, copyExpression.length() - 1);
+                startOut = startOut + "(" + c;
+                endOut = copyExpression.charAt(copyExpression.length() - 1) + ")" + endOut;
+                copyExpression = copyExpression.substring(1, copyExpression.length() - 1);
 //                }
             } else if (c == '+' || c == '*') {
                 startOut = startOut + "(" + c;
