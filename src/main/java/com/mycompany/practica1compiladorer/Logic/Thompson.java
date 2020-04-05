@@ -39,13 +39,14 @@ public class Thompson {
         firstNode.setLeftExpression(r);
     }
     
-    public void concatenation(List<Node> rs,List<Node> ss){
+    public List<Node> concatenation(List<Node> rs,List<Node> ss){
         rs.get(rs.size()-1).setLeftLink(ss.get(0));
         rs.get(rs.size()-1).setLeftExpression("!");
         rs.add(ss.get(ss.size()-1));
+        return rs;
     }
     
-    public void union(List<Node> rs,List<Node> ss){
+    public List<Node> union(List<Node> rs,List<Node> ss){
         Node firstN = new Node("!", rs.get(0), 0);
         firstN.setRightLink(ss.get(0));
         firstN.setRightExpression("!");
@@ -57,9 +58,10 @@ public class Thompson {
         ss.get(ss.size()-1).setLeftExpression("!");
         rs.add(lastN);
         rs.set(0, firstN);
+        return rs;
     }
     
-    public void asterisk(List<Node> rs){
+    public List<Node> asterisk(List<Node> rs){
         Node firstN = new Node("!", rs.get(0), 0);
         Node lastN = new Node("", null, 0);
         firstN.setRightLink(lastN);
@@ -70,9 +72,10 @@ public class Thompson {
         rs.get(rs.size()-1).setRightExpression("!");
         rs.add(lastN);
         rs.set(0, firstN);
+        return rs;
     }
     
-    public void sum(List<Node> rs){
+    public List<Node> sum(List<Node> rs){
         Node firstN = new Node("!", rs.get(0), 0);
         Node lastN = new Node("", null, 0);
         rs.get(rs.size()-1).setLeftLink(rs.get(0));
@@ -81,6 +84,7 @@ public class Thompson {
         rs.get(rs.size()-1).setRightExpression("!");
         rs.add(lastN);
         rs.set(0, firstN);
+        return rs;
     }
     
     /*public void regexOperator(List<String> listS){

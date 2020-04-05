@@ -19,11 +19,12 @@ public class Single {
         this.singleList = new ArrayList<Node>();
     }
     
-    public void define(String s){
+    public List<Node> define(String s){
         Node secondNode = new Node("", null, 0);
         Node firstNode = new Node(s, secondNode, 0);
         singleList.add(firstNode);
         singleList.add(secondNode);
+        return singleList;
     }
     
 }
