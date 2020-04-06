@@ -7,7 +7,9 @@ package com.mycompany.practica1compiladorer;
 
 
 import com.mycompany.practica1compiladorer.Logic.Thompson;
+import com.mycompany.practica1compiladorer.Logic.ToDeterministic;
 import com.mycompany.practica1compiladorer.Model.Node;
+import com.mycompany.practica1compiladorer.Model.State;
 import com.mycompany.practica1compiladorer.Utils.GraphGenerator;
 import com.mycompany.practica1compiladorer.Utils.ExpressionConverter;
 import com.mycompany.practica1compiladorer.Utils.RegExConverter;
@@ -26,13 +28,14 @@ public class Practica1Compiladores {
         List<String> expressions = new ArrayList<>();
 //        expressions.add("ab");
 //        expressions.add("bc|a");
-        expressions.add("a|(b.c)");
+//        expressions.add("a|(b.c)");
+        expressions.add("(1.0)");
 //        expressions.add("(a.b|c)*.d");
 //        expressions.add("c.x|a+.b+.c");
 //        expressions.add("((1|01)*|1)+");
 //        expressions.add("((1|0.1)*|1)+.(1|0.1)*");
 //        expressions.add("(GO|GOTO|TOO|ON)*ON.TOO");
-        expressions.add("A|((B*.(C|D)+).((((((A.X)|(X.Y)+)*.E).F)|H+)+.G)*)");
+//        expressions.add("A|((B*.(C|D)+).((((((A.X)|(X.Y)+)*.E).F)|H+)+.G)*)");
 
         for (String expression : expressions) {
             String postFixExp = RegExConverter.infixToPostfix(expression);
@@ -44,9 +47,61 @@ public class Practica1Compiladores {
 //                    + "\nOrder postfix Expression: " + aux + "\n"
             );
             String a = "";
-        }
+            graph.get(graph.size()-1).setState(1);
+            ToDeterministic toDet = new ToDeterministic();
+            toDet.setNodeNames(graph.get(0), 1);
+            toDet.stateGenerator();
+            List<State> readyStates = new ArrayList<State>();
+            toDet.transitionGenerator(toDet.getStates().get(0),readyStates);
+            List<String> auxTerms = new ArrayList<String>();
+            List<State> auxStates = new ArrayList<State>();
+            for(int z=0;z<toDet.getTransitions().size();z++){
+               if(!auxTerms.contains(toDet.getTransitions().get(z).getInputSymbol())){
+                   auxTerms.add(toDet.getTransitions().get(z).getInputSymbol());
+               }
+            }
+            for(int z=0;z<toDet.getTransitions().size();z++){
+               if(!auxStates.contains(toDet.getTransitions().get(z).getState())){
+                   auxStates.add(toDet.getTransitions().get(z).getState());
+               }
+               if(!auxStates.contains(toDet.getTransitions().get(z).getGoTo())){
+                   auxStates.add(toDet.getTransitions().get(z).getGoTo());
+               }
+            }
+            toDet.noTransitions(auxStates,auxTerms);
+            toDet.goToError(auxStates, auxTerms);
+            String[][] matriz = new String[1+auxStates.size()][2+auxTerms.size()];
+            matriz[0][0]="Estado";
+            int head =0;
+            while(head<auxTerms.size()){
+                matriz[0][head+1]=auxTerms.get(head);
+                head++;
+            }
+            matriz[0][head+1]="Aceptación?";
+            for(int s =0;s<auxStates.size();s++){
+                for(int t =0;t<toDet.getTransitions().size();t++){
+                    if(toDet.getTransitions().get(t).getState().equals(auxStates.get(s))){
+                        matriz[s+1][0]= String.valueOf(toDet.getTransitions().get(t).getState().getName());
+                        matriz[s+1][1+auxTerms.size()]= String.valueOf(toDet.getTransitions().get(t).getState().getState());
+                        for(int header=1;header<(1+auxTerms.size());header++){
+                            if(matriz[0][header].equals(toDet.getTransitions().get(t).getInputSymbol())){
+                                matriz[s+1][header]=String.valueOf(toDet.getTransitions().get(t).getGoTo().getName());
+                            }
+                        }
+                    }
+                }
+            }
+            String titles[] = new String[(2+auxTerms.size())];
+            for(int tlt=0;tlt<(2+auxTerms.size());tlt++){
+                titles[tlt]=matriz[tlt][0];
+            }
 
-        /* Stack<String> stack = new Stack<String>();
+           FiniteAutomat af=new FiniteAutomat(matriz,titles);
+            af.setLocationRelativeTo(null);
+            af.setTitle("Autómata Finito");
+            af.setVisible(true);
+        }
+        /*Stack<String> stack = new Stack<String>();
         String testString="-";
 
         Stack<String> stack = new Stack<String>();
@@ -155,7 +210,7 @@ public class Practica1Compiladores {
                     }
                 }
             }
-
+----
 
             for(int header2=0;header2<(1+auxStates.size());header2++){
                 for(int header=0;header<(2+auxTerms.size());header++){

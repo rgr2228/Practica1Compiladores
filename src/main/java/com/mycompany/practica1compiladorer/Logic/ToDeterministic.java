@@ -17,15 +17,14 @@ import java.util.List;
  * @authors Raúl Gómez, Alejandro Gallego
  */
 public class ToDeterministic {
-    private Thompson thompson;
     private List<Node> nodeList = new ArrayList<Node>();
     private List<State> states = new ArrayList<State>();
     private State errorState = new State(0,0);
     private List<Transititon> transitions = new ArrayList<Transititon>();
     int finalName=1;
 
-    public ToDeterministic(Thompson thompson) {
-        this.thompson = thompson;
+    public ToDeterministic() {
+        
     }
 
     public List<Node> getNodeList() {
