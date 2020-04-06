@@ -34,25 +34,28 @@ public class FormatRegex {
         char c = regex.charAt(index);
         if ("|+*.".contains(c + "")) {
             if (c == '|') {
-                int auxIndex = index;
                 index = index - 2;
-                return "or(" + addParenthesis(regex, auxIndex - 1) + ", " + addParenthesis(regex, auxIndex - 2) + ")";
+                return "or(" + addParenthesis(regex, index - 1) + ", " + addParenthesis(regex, index - 2) + ")";
+//                return "or(" + addParenthesis(regex, auxIndex - 1) + ", " + addParenthesis(regex, auxIndex - 2) + ")";
             } else if (c == '.') {
-                int auxIndex = index;
                 index = index - 2;
-                return "and(" + addParenthesis(regex, auxIndex - 1) + ", " + addParenthesis(regex, auxIndex - 2) + ")";
+                String out = "and(" + addParenthesis(regex, index - 1) + ", " + addParenthesis(regex, index - 2) + ")";
+                return out;
             } else if (c == '*') {
-                int auxIndex = index;
+
                 index--;
-                return "ast(" + addParenthesis(regex, auxIndex - 1) + ")";
+                String out = "ast(" + addParenthesis(regex, index - 1) + ")";
+                return out;
             } else {
-                int auxIndex = index;
+
                 index--;
-                return "plus(" + addParenthesis(regex, auxIndex - 1) + ")";
+                String out = "plus(" + addParenthesis(regex, index - 1) + ")";
+                return out;
             }
         } else {
+//            index--;
+//            return regex.charAt(index)+"";
             return c + "";
         }
     }
-
 }

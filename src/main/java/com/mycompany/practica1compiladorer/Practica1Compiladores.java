@@ -6,8 +6,10 @@
 package com.mycompany.practica1compiladorer;
 
 
+import com.mycompany.practica1compiladorer.Logic.Thompson;
+import com.mycompany.practica1compiladorer.Model.Node;
+import com.mycompany.practica1compiladorer.Utils.ThompsonConstructor;
 import com.mycompany.practica1compiladorer.Utils.ExpressionConverter;
-import com.mycompany.practica1compiladorer.Utils.FormatRegex;
 import com.mycompany.practica1compiladorer.Utils.RegExConverter;
 
 import java.util.ArrayList;
@@ -22,21 +24,30 @@ public class Practica1Compiladores {
         ExpressionConverter ev1 = new ExpressionConverter();
 
         List<String> expressions = new ArrayList<>();
-        expressions.add("(a.b|c)*.d");
-        expressions.add("((1|0.1)*|1)+.(1|0.1)*");
-        expressions.add("((1|01)*|1)+");
-        expressions.add("(GO|GOTO|TOO|ON)*ON.TOO");
+//        expressions.add("ab");
+//        expressions.add("bc|a");
         expressions.add("a|(b.c)");
-        expressions.add("bc|a");
-        expressions.add("c.x|a+.b+.c");
+//        expressions.add("(a.b|c)*.d");
+//        expressions.add("c.x|a+.b+.c");
+//        expressions.add("((1|01)*|1)+");
+//        expressions.add("((1|0.1)*|1)+.(1|0.1)*");
+//        expressions.add("(GO|GOTO|TOO|ON)*ON.TOO");
         expressions.add("A|((B*.(C|D)+).((((((A.X)|(X.Y)+)*.E).F)|H+)+.G)*)");
 
         for (String expression : expressions) {
             String postFixExp = RegExConverter.infixToPostfix(expression);
-            String aux = FormatRegex.addParenthesis(postFixExp, postFixExp.length() - 1);
+            Thompson thompson = new Thompson();
+            ThompsonConstructor thompsonConstructor = new ThompsonConstructor(thompson, postFixExp);
+            List<Node> listNode = thompsonConstructor.addParenthesis();
+//            String aux = thompsonConstructor.addParenthesis(postFixExp);
+//            String aux = FormatRegex.addParenthesis(postFixExp, postFixExp.length() - 1);
             System.out.println("Infix Expression: " + expression
-                    + "\nPostfix Expression: " + postFixExp
-                    + "\nOrder postfix Expression: " + aux+"\n");
+                            + "\nPostfix Expression: " + postFixExp
+//                    + "\nOrder postfix Expression: " + aux + "\n"
+            );
+
+//            List<Node> listNode = new Thompson().buildRegex(postFixExp, postFixExp.length() - 1);
+            String a = "";
         }
 
         /* Stack<String> stack = new Stack<String>();
