@@ -115,14 +115,28 @@ public class ToDeterministic {
                 goTo = this.findSymbol(s, inputSymbol,goTo);
                 if(s.getNodes().equals(goTo.getNodes()) && s.getState()==goTo.getState()){
                     transitions.add(new Transititon(s, inputSymbol, s));
+                    goTo=s;
                 }else{
-                    finalName=finalName+1;
-                    goTo.setName(finalName);
-                    transitions.add(new Transititon(s, inputSymbol, goTo));
+                    int readyStateBool=0;
+                    for(State readyState:readyStates){
+                        System.out.println(readyState.getNodes().equals(goTo.getNodes()));
+                        if(readyState.getNodes().equals(goTo.getNodes()) && readyState.getState()==goTo.getState()){
+                            transitions.add(new Transititon(s, inputSymbol, readyState));
+                            readyStateBool=1;
+                            goTo=readyState;
+                            System.out.println("Hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeee1");
+                        }
+                    }
+                    if(readyStateBool==0){
+                        System.out.println("Hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeee2");
+                        finalName=finalName+1;
+                        goTo.setName(finalName);
+                        transitions.add(new Transititon(s, inputSymbol, goTo));
+                    }
                 }
                 readyTerms.add(inputSymbol);
-                readyStates.add(goTo);
-                if(!readyStates.contains(s)){
+                readyStates.add(s);
+                if(!readyStates.contains(goTo)){
                     readyStates = this.transitionGenerator(goTo,readyStates);
                 }
             }

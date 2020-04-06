@@ -6,7 +6,9 @@ com\mycompany\practica1compiladorer\FiniteAutomat$1.class
 com\mycompany\practica1compiladorer\Model\Transititon.class
 com\mycompany\practica1compiladorer\Model\Node.class
 com\mycompany\practica1compiladorer\FiniteAutomat.class
+com\mycompany\practica1compiladorer\Utils\ExpressionConverter.class
 com\mycompany\practica1compiladorer\Logic\Thompson.class
+com\mycompany\practica1compiladorer\Utils\Stack.class
 com\mycompany\practica1compiladorer\Model\Single.class
 com\mycompany\practica1compiladorer\Practica1Compiladores.class
 com\mycompany\practica1compiladorer\Logic\ToDeterministic.class
