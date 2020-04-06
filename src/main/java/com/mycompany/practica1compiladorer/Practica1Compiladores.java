@@ -47,56 +47,64 @@ public class Practica1Compiladores {
 //                    + "\nOrder postfix Expression: " + aux + "\n"
             );
             String a = "";
-            graph.get(graph.size()-1).setState(1);
+            graph.get(graph.size() - 1).setState(1);
             ToDeterministic toDet = new ToDeterministic();
             toDet.setNodeNames(graph.get(0), 1);
             toDet.stateGenerator();
             List<State> readyStates = new ArrayList<State>();
-            toDet.transitionGenerator(toDet.getStates().get(0),readyStates);
+            toDet.transitionGenerator(toDet.getStates().get(0), readyStates);
             List<String> auxTerms = new ArrayList<String>();
             List<State> auxStates = new ArrayList<State>();
-            for(int z=0;z<toDet.getTransitions().size();z++){
-               if(!auxTerms.contains(toDet.getTransitions().get(z).getInputSymbol())){
-                   auxTerms.add(toDet.getTransitions().get(z).getInputSymbol());
-               }
+            for (int z = 0; z < toDet.getTransitions().size(); z++) {
+                if (!auxTerms.contains(toDet.getTransitions().get(z).getInputSymbol())) {
+                    auxTerms.add(toDet.getTransitions().get(z).getInputSymbol());
+                }
             }
-            for(int z=0;z<toDet.getTransitions().size();z++){
-               if(!auxStates.contains(toDet.getTransitions().get(z).getState())){
-                   auxStates.add(toDet.getTransitions().get(z).getState());
-               }
-               if(!auxStates.contains(toDet.getTransitions().get(z).getGoTo())){
-                   auxStates.add(toDet.getTransitions().get(z).getGoTo());
-               }
+            for (int z = 0; z < toDet.getTransitions().size(); z++) {
+                if (!auxStates.contains(toDet.getTransitions().get(z).getState())) {
+                    auxStates.add(toDet.getTransitions().get(z).getState());
+                }
+                if (!auxStates.contains(toDet.getTransitions().get(z).getGoTo())) {
+                    auxStates.add(toDet.getTransitions().get(z).getGoTo());
+                }
             }
-            toDet.noTransitions(auxStates,auxTerms);
+            toDet.noTransitions(auxStates, auxTerms);
             toDet.goToError(auxStates, auxTerms);
-            String[][] matriz = new String[1+auxStates.size()][2+auxTerms.size()];
-            matriz[0][0]="Estado";
-            int head =0;
-            while(head<auxTerms.size()){
-                matriz[0][head+1]=auxTerms.get(head);
+            String[][] matriz = new String[1 + auxStates.size()][2 + auxTerms.size()];
+            matriz[0][0] = "Estado";
+            int head = 0;
+            while (head < auxTerms.size()) {
+                matriz[0][head + 1] = auxTerms.get(head);
                 head++;
             }
-            matriz[0][head+1]="Aceptación?";
-            for(int s =0;s<auxStates.size();s++){
-                for(int t =0;t<toDet.getTransitions().size();t++){
-                    if(toDet.getTransitions().get(t).getState().equals(auxStates.get(s))){
-                        matriz[s+1][0]= String.valueOf(toDet.getTransitions().get(t).getState().getName());
-                        matriz[s+1][1+auxTerms.size()]= String.valueOf(toDet.getTransitions().get(t).getState().getState());
-                        for(int header=1;header<(1+auxTerms.size());header++){
-                            if(matriz[0][header].equals(toDet.getTransitions().get(t).getInputSymbol())){
-                                matriz[s+1][header]=String.valueOf(toDet.getTransitions().get(t).getGoTo().getName());
+            matriz[0][head + 1] = "Aceptación?";
+            for (int s = 0; s < auxStates.size(); s++) {
+                for (int t = 0; t < toDet.getTransitions().size(); t++) {
+                    if (toDet.getTransitions().get(t).getState().equals(auxStates.get(s))) {
+                        matriz[s + 1][0] = String.valueOf(toDet.getTransitions().get(t).getState().getName());
+                        matriz[s + 1][1 + auxTerms.size()] = String.valueOf(toDet.getTransitions().get(t).getState().getState());
+                        for (int header = 1; header < (1 + auxTerms.size()); header++) {
+                            if (matriz[0][header].equals(toDet.getTransitions().get(t).getInputSymbol())) {
+                                matriz[s + 1][header] = String.valueOf(toDet.getTransitions().get(t).getGoTo().getName());
                             }
                         }
                     }
                 }
             }
-            String titles[] = new String[(2+auxTerms.size())];
-            for(int tlt=0;tlt<(2+auxTerms.size());tlt++){
-                titles[tlt]=matriz[tlt][0];
+
+            arrayReverse(matriz[0], matriz[0].length - 1, 0);
+            String aux = matriz[0][0];
+            matriz[0][0] = matriz[0][matriz[0].length - 1];
+            matriz[0][matriz[0].length - 1] = aux;
+
+
+            String titles[] = new String[(2 + auxTerms.size())];
+            for (int tlt = 0; tlt < (2 + auxTerms.size()); tlt++) {
+                titles[tlt] = matriz[tlt][0];
             }
 
-           FiniteAutomat af=new FiniteAutomat(matriz,titles);
+
+            FiniteAutomat af = new FiniteAutomat(matriz, titles);
             af.setLocationRelativeTo(null);
             af.setTitle("Autómata Finito");
             af.setVisible(true);
@@ -228,6 +236,15 @@ public class Practica1Compiladores {
             af.setTitle("Autómata Finito");
             af.setVisible(true);
         }*/
+    }
+
+    private static void arrayReverse(String[] array, int indice, int pos) {
+        if (indice > pos) { // change
+            String tmp = array[pos];
+            array[pos] = array[indice];
+            array[indice] = tmp;
+            arrayReverse(array, indice - 1, pos + 1);
+        }
     }
 
 }
