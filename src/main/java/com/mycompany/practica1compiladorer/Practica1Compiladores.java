@@ -10,6 +10,7 @@ import com.mycompany.practica1compiladorer.Logic.Thompson;
 import com.mycompany.practica1compiladorer.Logic.ToDeterministic;
 import com.mycompany.practica1compiladorer.Model.Node;
 import com.mycompany.practica1compiladorer.Model.State;
+import com.mycompany.practica1compiladorer.Model.Transititon;
 import com.mycompany.practica1compiladorer.Utils.GraphGenerator;
 import com.mycompany.practica1compiladorer.Utils.ExpressionConverter;
 import com.mycompany.practica1compiladorer.Utils.RegExConverter;
@@ -29,14 +30,14 @@ public class Practica1Compiladores {
 //        expressions.add("ab");
 //        expressions.add("bc|a");
 //        expressions.add("a|(b.c)");
-        expressions.add("(1.0)");
+        expressions.add("(1+01*0)*");
 //        expressions.add("(a.b|c)*.d");
 //        expressions.add("c.x|a+.b+.c");
 //        expressions.add("((1|01)*|1)+");
 //        expressions.add("((1|0.1)*|1)+.(1|0.1)*");
 //        expressions.add("(GO|GOTO|TOO|ON)*ON.TOO");
 //        expressions.add("A|((B*.(C|D)+).((((((A.X)|(X.Y)+)*.E).F)|H+)+.G)*)");
-
+/*
         for (String expression : expressions) {
             String postFixExp = RegExConverter.infixToPostfix(expression);
             Thompson thompson = new Thompson();
@@ -108,7 +109,9 @@ public class Practica1Compiladores {
             af.setLocationRelativeTo(null);
             af.setTitle("Autómata Finito");
             af.setVisible(true);
-        }
+        }*/
+        
+        
         /*Stack<String> stack = new Stack<String>();
         String testString="-";
 
@@ -136,16 +139,22 @@ public class Practica1Compiladores {
         System.out.println("Nuevo nivel");
         //PARTE DE PRUEBA
         RowRecognition.runRegexLevel(listS);
+*/
 
-
-        /*
-        if(listS.size()==0){
-            System.out.println("Secuencia inválida");
-        }else{
-            Thompson prueba = new Thompson(new Node("", null, "", null, 0), new Node("", null, "", null, 1));
-            prueba.regexOperator(listS);
-            ToDeterministic toDet = new ToDeterministic(prueba);
-            toDet.setNodeNames(prueba.getFirstNode(), 1);
+            String expression="(0.1)+";
+            String postFixExp = RegExConverter.infixToPostfix(expression);
+            Thompson thompson = new Thompson();
+            GraphGenerator graphGenerator = new GraphGenerator(thompson, postFixExp);
+            List<Node> graph = graphGenerator.generateGraph();
+            System.out.println("Infix Expression: " + expression
+                            + "\nPostfix Expression: " + postFixExp
+//                    + "\nOrder postfix Expression: " + aux + "\n"
+            );
+            String a = "";
+            graph.get(graph.size() - 1).setState(1);
+            
+            ToDeterministic toDet = new ToDeterministic();
+            toDet.setNodeNames(graph.get(0), 1);
             toDet.stateGenerator();
             for(int i =0;i<toDet.getStates().size();i++){
                 System.out.println("Estados:"+toDet.getStates().get(i).getName() +","+toDet.getStates().get(i).getState());
@@ -218,7 +227,7 @@ public class Practica1Compiladores {
                     }
                 }
             }
-----
+
 
             for(int header2=0;header2<(1+auxStates.size());header2++){
                 for(int header=0;header<(2+auxTerms.size());header++){
@@ -235,7 +244,7 @@ public class Practica1Compiladores {
             af.setLocationRelativeTo(null);
             af.setTitle("Autómata Finito");
             af.setVisible(true);
-        }*/
+        
     }
 
     private static void arrayReverse(String[] array, int indice, int pos) {

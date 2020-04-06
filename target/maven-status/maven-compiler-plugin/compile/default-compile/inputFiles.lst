@@ -1,8 +1,15 @@
 C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\Model\Transititon.java
 C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\FiniteAutomat.java
-C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\Model\State.java
+C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\Utils\Stack.java
+C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\Utils\RegExConverter.java
 C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\Logic\ToDeterministic.java
+C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\Logic\RowRecognition.java
+C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\Logic\Utils.java
+C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\Model\Single.java
+C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\Utils\ExpressionConverter.java
+C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\Utils\FormatRegex.java
+C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\Model\State.java
 C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\Logic\Thompson.java
 C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\Practica1Compiladores.java
-C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\Logic\RowRecognition.java
+C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\Utils\GraphGenerator.java
 C:\Users\Dulfary\Documents\Raúl\UdeA\2019-2\Compiladores\Practica1Compiladorer\src\main\java\com\mycompany\practica1compiladorer\Model\Node.java
