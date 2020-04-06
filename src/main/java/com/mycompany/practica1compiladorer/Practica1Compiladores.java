@@ -8,7 +8,7 @@ package com.mycompany.practica1compiladorer;
 
 import com.mycompany.practica1compiladorer.Logic.Thompson;
 import com.mycompany.practica1compiladorer.Model.Node;
-import com.mycompany.practica1compiladorer.Utils.ThompsonConstructor;
+import com.mycompany.practica1compiladorer.Utils.GraphGenerator;
 import com.mycompany.practica1compiladorer.Utils.ExpressionConverter;
 import com.mycompany.practica1compiladorer.Utils.RegExConverter;
 
@@ -37,16 +37,12 @@ public class Practica1Compiladores {
         for (String expression : expressions) {
             String postFixExp = RegExConverter.infixToPostfix(expression);
             Thompson thompson = new Thompson();
-            ThompsonConstructor thompsonConstructor = new ThompsonConstructor(thompson, postFixExp);
-            List<Node> listNode = thompsonConstructor.addParenthesis();
-//            String aux = thompsonConstructor.addParenthesis(postFixExp);
-//            String aux = FormatRegex.addParenthesis(postFixExp, postFixExp.length() - 1);
+            GraphGenerator graphGenerator = new GraphGenerator(thompson, postFixExp);
+            List<Node> graph = graphGenerator.generateGraph();
             System.out.println("Infix Expression: " + expression
                             + "\nPostfix Expression: " + postFixExp
 //                    + "\nOrder postfix Expression: " + aux + "\n"
             );
-
-//            List<Node> listNode = new Thompson().buildRegex(postFixExp, postFixExp.length() - 1);
             String a = "";
         }
 
@@ -177,36 +173,6 @@ public class Practica1Compiladores {
             af.setTitle("Autómata Finito");
             af.setVisible(true);
         }*/
-    }
-
-    public static String addParenthesis(String expression) {
-        String copyExpression = expression;
-        String endOut = "";
-        String startOut = "";
-        char c;
-        while (copyExpression.length() >= 1) {
-            c = copyExpression.charAt(0);
-            if (c == '|' || c == '.') {
-//                if (copyExpression.length() > 1 && !isOperator(copyExpression.substring(0, 2).charAt(1)) && !isOperator(endOut.charAt(0))) {
-//                    String aux = endOut.charAt(0) + "";
-//                    endOut = endOut.substring(1);
-//                    endOut = "(" + copyExpression.substring(0, 2) + aux + ")" + endOut;
-//                    copyExpression = copyExpression.substring(2);
-//                } else {
-                startOut = startOut + "(" + c;
-                endOut = copyExpression.charAt(copyExpression.length() - 1) + ")" + endOut;
-                copyExpression = copyExpression.substring(1, copyExpression.length() - 1);
-//                }
-            } else if (c == '+' || c == '*') {
-                startOut = startOut + "(" + c;
-                endOut = ")" + endOut;
-                copyExpression = copyExpression.substring(1);
-            } else {
-                startOut = startOut + c;
-                copyExpression = copyExpression.substring(1);
-            }
-        }
-        return startOut + endOut;
     }
 
 }

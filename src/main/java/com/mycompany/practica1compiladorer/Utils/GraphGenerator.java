@@ -6,39 +6,39 @@ import com.mycompany.practica1compiladorer.Model.Single;
 
 import java.util.List;
 
-public class ThompsonConstructor {
+public class GraphGenerator {
     private Thompson thompson;
     private String regularExpression;
     private int index;
 
-    public ThompsonConstructor(Thompson thompson, String regularExpression) {
+    public GraphGenerator(Thompson thompson, String regularExpression) {
         this.thompson = thompson;
         this.regularExpression = regularExpression;
         this.index = regularExpression.length() - 1;
     }
 
-    public List<Node> addParenthesis() {
+    public List<Node> generateGraph() {
         char c = regularExpression.charAt(index);
         if ("|+*.".contains(c + "")) {
             if (c == '|') {
                 index--;
-                List<Node> op1 = addParenthesis();
+                List<Node> op1 = generateGraph();
                 index--;
-                List<Node> op2 = addParenthesis();
+                List<Node> op2 = generateGraph();
                 return thompson.union(op1, op2);
             } else if (c == '.') {
                 index--;
-                List<Node> op1 = addParenthesis();
+                List<Node> op1 = generateGraph();
                 index--;
-                List<Node> op2 = addParenthesis();
+                List<Node> op2 = generateGraph();
                 return thompson.concatenation(op1, op2);
             } else if (c == '*') {
                 index--;
-                List<Node> op1 = addParenthesis();
+                List<Node> op1 = generateGraph();
                 return thompson.asterisk(op1);
             } else {
                 index--;
-                List<Node> op1 = addParenthesis();
+                List<Node> op1 = generateGraph();
                 return thompson.sum(op1);
             }
         } else {
