@@ -10,14 +10,16 @@ public class FormatRegex {
      */
     public static String formatRegEx(String regex) {
         String res = new String();
+        String auxRegex = regex.replaceAll("\\s|\\n|\\t", "");
+        auxRegex = auxRegex.replaceAll(System.getProperty("line.separator", ""), "");
         List<Character> allOperators = Arrays.asList('|', '?', '+', '*', '^', '.');
         List<Character> binaryOperators = Arrays.asList('^', '|', '.');
 
-        for (int i = 0; i < regex.length(); i++) {
-            Character c1 = regex.charAt(i);
+        for (int i = 0; i < auxRegex.length(); i++) {
+            Character c1 = auxRegex.charAt(i);
 
-            if (i + 1 < regex.length()) {
-                Character c2 = regex.charAt(i + 1);
+            if (i + 1 < auxRegex.length()) {
+                Character c2 = auxRegex.charAt(i + 1);
 
                 res += c1;
 
@@ -26,7 +28,7 @@ public class FormatRegex {
                 }
             }
         }
-        res += regex.charAt(regex.length() - 1);
+        res += auxRegex.charAt(auxRegex.length() - 1);
         return res;
     }
 
