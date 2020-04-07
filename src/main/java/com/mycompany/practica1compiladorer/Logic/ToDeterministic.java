@@ -96,7 +96,16 @@ public class ToDeterministic {
             if(s.getNodes().get(i).getLeftExpression().equals(inputSymbol)){
                 State goToAux = new State();
                 goToAux = this.findStateByName(s.getNodes().get(i).getLeftLink().getName());
-                goTo.getNodes().addAll(goToAux.getNodes());
+                /*System.out.println("Entra nuevo----");
+                for(Node nodePrueba:goToAux.getNodes()){
+                    System.out.println(nodePrueba.getName());
+                }*/
+                for(Node nodeAux: goToAux.getNodes()){
+                    if(!goTo.getNodes().contains(nodeAux)){
+                        goTo.getNodes().add(nodeAux);
+                    }
+                }
+                //goTo.getNodes().addAll(goToAux.getNodes());
                 if(goToAux.getState()==1){
                     goTo.setState(1);
                 }
@@ -119,16 +128,19 @@ public class ToDeterministic {
                 }else{
                     int readyStateBool=0;
                     for(State readyState:readyStates){
-                        System.out.println(readyState.getNodes().equals(goTo.getNodes()));
+                        for(Node readyNode:readyState.getNodes()){
+                            System.out.println("Nodo listo:"+readyNode.getName());
+                        }
+                        for(Node readyNode:goTo.getNodes()){
+                            System.out.println("goTo listo:"+readyNode.getName());
+                        }
                         if(readyState.getNodes().equals(goTo.getNodes()) && readyState.getState()==goTo.getState()){
                             transitions.add(new Transititon(s, inputSymbol, readyState));
                             readyStateBool=1;
                             goTo=readyState;
-                            System.out.println("Hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeee1");
                         }
                     }
                     if(readyStateBool==0){
-                        System.out.println("Hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeee2");
                         finalName=finalName+1;
                         goTo.setName(finalName);
                         transitions.add(new Transititon(s, inputSymbol, goTo));

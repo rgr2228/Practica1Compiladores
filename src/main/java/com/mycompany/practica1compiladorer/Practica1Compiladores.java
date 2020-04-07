@@ -142,7 +142,7 @@ public class Practica1Compiladores {
 */
 
         //String expression="(0.1)+";
-        String expression = "01|2";
+        String expression = "(0.1)+";
 //        String postFixExp = RegExConverter.infixToPostfix(expression);
         String prefixExp = new ExpressionConverter().infixToPrefix(expression);
         Thompson thompson = new Thompson();
@@ -237,12 +237,12 @@ public class Practica1Compiladores {
                 System.out.println("header " + header2 + ":" + matriz[header2][header]);
             }
         }
-
+/*
         arrayReverse(matriz[0], matriz[0].length - 1, 0);
         String aux = matriz[0][0];
         matriz[0][0] = matriz[0][matriz[0].length - 1];
         matriz[0][matriz[0].length - 1] = aux;
-
+*/
 
         String titles[] = new String[(2 + auxTerms.size())];
         for (int tlt = 0; tlt < (2 + auxTerms.size()); tlt++) {

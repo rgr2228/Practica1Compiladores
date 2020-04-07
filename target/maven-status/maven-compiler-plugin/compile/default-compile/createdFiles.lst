@@ -1,6 +1,7 @@
 com\mycompany\practica1compiladorer\Logic\RowRecognition.class
 com\mycompany\practica1compiladorer\Utils\FormatRegex.class
 com\mycompany\practica1compiladorer\Utils\GraphGenerator.class
+com\mycompany\practica1compiladorer\Utils\GraphPrefixGenerator.class
 com\mycompany\practica1compiladorer\Model\State.class
 com\mycompany\practica1compiladorer\FiniteAutomat$1.class
 com\mycompany\practica1compiladorer\Model\Transititon.class
