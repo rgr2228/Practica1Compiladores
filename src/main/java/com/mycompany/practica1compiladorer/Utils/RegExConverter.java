@@ -48,9 +48,9 @@ public class RegExConverter {
 
         Stack<Character> stack = new Stack<Character>();
 
-        String formattedRegEx = FormatRegex.formatRegEx(regex);
+        //String formattedRegEx = FormatRegex.formatRegEx(regex);
 
-        for (Character c : formattedRegEx.toCharArray()) {
+        for (Character c : regex.toCharArray()) {
             switch (c) {
                 case '(':
                     stack.push(c);

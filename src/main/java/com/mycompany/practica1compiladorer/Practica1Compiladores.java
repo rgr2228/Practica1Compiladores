@@ -12,6 +12,7 @@ import com.mycompany.practica1compiladorer.Model.Node;
 import com.mycompany.practica1compiladorer.Model.State;
 import com.mycompany.practica1compiladorer.Model.Transititon;
 import com.mycompany.practica1compiladorer.Utils.ExpressionConverter;
+import com.mycompany.practica1compiladorer.Utils.FormatRegex;
 import com.mycompany.practica1compiladorer.Utils.GraphPrefixGenerator;
 import com.mycompany.practica1compiladorer.Utils.RegExConverter;
 
@@ -143,7 +144,8 @@ public class Practica1Compiladores {
 
         //String expression="(0.1)+";
         String expression = "(0.1)+";
-//        String postFixExp = RegExConverter.infixToPostfix(expression);
+        expression = FormatRegex.formatRegEx(expression);
+        //String postFixExp = RegExConverter.infixToPostfix(expression);
         String prefixExp = new ExpressionConverter().infixToPrefix(expression);
         Thompson thompson = new Thompson();
 //            GraphGenerator graphGenerator = new GraphGenerator(thompson, postFixExp);

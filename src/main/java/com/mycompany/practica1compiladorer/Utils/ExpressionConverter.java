@@ -5,12 +5,12 @@ public class ExpressionConverter {
     private String prefixExp = "";
 
     public String infixToPrefix(String infixExp) {
-        String formattedRegEx = FormatRegex.formatRegEx(infixExp);
-        int infixLegth = formattedRegEx.length();
+//        String formattedRegEx = FormatRegex.formatRegEx(infixExp);
+        int infixLegth = infixExp.length();
         Stack stack = new Stack(infixLegth);
 
         for (infixLegth = infixLegth - 1; infixLegth >= 0; infixLegth--) {
-            char ch = formattedRegEx.charAt(infixLegth);
+            char ch = infixExp.charAt(infixLegth);
             switch (ch) {
                 case '|':
                     gotOperator(ch, 1, ')', stack);
