@@ -1,4 +1,4 @@
-package com.mycompany.practica1compiladorer.Utils;
+package com.mycompany.practica1compiladorer.Logic;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

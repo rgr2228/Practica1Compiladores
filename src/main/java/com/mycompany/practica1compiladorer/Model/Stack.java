@@ -1,4 +1,4 @@
-package com.mycompany.practica1compiladorer.Utils;
+package com.mycompany.practica1compiladorer.Model;
 
 public class Stack
 {

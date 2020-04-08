@@ -1,4 +1,6 @@
-package com.mycompany.practica1compiladorer.Utils;
+package com.mycompany.practica1compiladorer.Logic;
+
+import com.mycompany.practica1compiladorer.Model.Stack;
 
 public class ExpressionConverter {
 

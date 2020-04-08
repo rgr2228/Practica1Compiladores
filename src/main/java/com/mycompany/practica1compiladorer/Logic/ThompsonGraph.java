@@ -1,8 +1,6 @@
 package com.mycompany.practica1compiladorer.Logic;
 
 import com.mycompany.practica1compiladorer.Model.Node;
-import com.mycompany.practica1compiladorer.Utils.ExpressionConverter;
-import com.mycompany.practica1compiladorer.Utils.PrefixToThompsonConverter;
 
 import java.util.List;
 

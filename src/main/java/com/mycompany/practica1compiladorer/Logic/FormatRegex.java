@@ -1,4 +1,4 @@
-package com.mycompany.practica1compiladorer.Utils;
+package com.mycompany.practica1compiladorer.Logic;
 
 import java.util.Arrays;
 import java.util.List;

@@ -6,11 +6,11 @@
 package com.mycompany.practica1compiladorer;
 
 
+import com.mycompany.practica1compiladorer.Logic.StringValidator;
 import com.mycompany.practica1compiladorer.Logic.ThompsonGraph;
 import com.mycompany.practica1compiladorer.Logic.ThompsonToDeterministicConverter;
 import com.mycompany.practica1compiladorer.Model.State;
 import com.mycompany.practica1compiladorer.Model.Transititon;
-import com.mycompany.practica1compiladorer.Utils.*;
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
