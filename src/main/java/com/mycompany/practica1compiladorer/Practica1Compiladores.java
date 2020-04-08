@@ -140,7 +140,7 @@ public class Practica1Compiladores {
 */
 
         //String expression="(0.1)+";
-        String expression = "(01)+|2";
+        String expression = "(1|2)+(3|4)+";
         expression = FormatRegex.formatRegEx(expression);
         RegexValidator regexValidator = new RegexValidator(expression);
         boolean isValid = regexValidator.validateInput("000001");

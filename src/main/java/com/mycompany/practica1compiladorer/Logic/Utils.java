@@ -8,7 +8,7 @@ package com.mycompany.practica1compiladorer.Logic;
 import java.util.Stack;
 /**
  *
- * @author alejandro.gallego
+ * @author Raúl Gómez, Alejandro Gallego
  */
 public class Utils {
 
