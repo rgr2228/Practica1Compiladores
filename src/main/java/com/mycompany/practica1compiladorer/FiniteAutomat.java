@@ -5,19 +5,19 @@
  */
 package com.mycompany.practica1compiladorer;
 
+import org.javatuples.Pair;
+
 /**
  *
  * @author Raúl Gómez, Alejandro Gallego
  */
 public class FiniteAutomat extends javax.swing.JFrame {
-    private static String[][] matriz;
-    private static String[] matTitles;
+    private static Pair<String[],String[][]> matrixAfd;
     /**
      * Creates new form FiniteAutomat
      */
-    public FiniteAutomat(String[][] mat,String[] matT) {
-        matriz = mat;
-        matTitles= matT;
+    public FiniteAutomat(Pair<String[],String[][]> matrixAfd) {
+        FiniteAutomat.matrixAfd=matrixAfd;
         initComponents();
     }
 
@@ -40,8 +40,8 @@ public class FiniteAutomat extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            matriz,
-            matTitles
+            matrixAfd.getValue1(),
+                matrixAfd.getValue0()
         ));
         jTable1.setTableHeader(null);
         jScrollPane1.setViewportView(jTable1);
@@ -145,7 +145,7 @@ public class FiniteAutomat extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FiniteAutomat(matriz,matTitles).setVisible(true);
+                new FiniteAutomat(matrixAfd).setVisible(true);
             }
         });
     }

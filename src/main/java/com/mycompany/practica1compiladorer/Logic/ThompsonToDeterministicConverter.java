@@ -15,14 +15,14 @@ import java.util.List;
 /**
  * @authors Raúl Gómez, Alejandro Gallego
  */
-public class ToDeterministic {
+public class ThompsonToDeterministicConverter {
     private List<Node> nodeList = new ArrayList<Node>();
     private List<State> states = new ArrayList<State>();
     private State errorState = new State(0, 0);
     private List<Transititon> transitions = new ArrayList<Transititon>();
     int finalName = 1;
 
-    public ToDeterministic(ThompsonGraph thompsonGraph) {
+    public ThompsonToDeterministicConverter(ThompsonGraph thompsonGraph) {
         setNodeNames(thompsonGraph.getNodes().get(0), 1);
     }
 
