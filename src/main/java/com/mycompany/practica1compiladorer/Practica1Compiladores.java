@@ -11,10 +11,7 @@ import com.mycompany.practica1compiladorer.Logic.ToDeterministic;
 import com.mycompany.practica1compiladorer.Model.Node;
 import com.mycompany.practica1compiladorer.Model.State;
 import com.mycompany.practica1compiladorer.Model.Transititon;
-import com.mycompany.practica1compiladorer.Utils.ExpressionConverter;
-import com.mycompany.practica1compiladorer.Utils.FormatRegex;
-import com.mycompany.practica1compiladorer.Utils.GraphPrefixGenerator;
-import com.mycompany.practica1compiladorer.Utils.RegExConverter;
+import com.mycompany.practica1compiladorer.Utils.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,8 +140,11 @@ public class Practica1Compiladores {
 */
 
         //String expression="(0.1)+";
-        String expression = "(0.1)+";
+        String expression = "(01)+|2";
         expression = FormatRegex.formatRegEx(expression);
+        RegexValidator regexValidator = new RegexValidator(expression);
+        boolean isValid = regexValidator.validateInput("000001");
+        boolean isValid2 = regexValidator.validateInput("2");
         //String postFixExp = RegExConverter.infixToPostfix(expression);
         String prefixExp = new ExpressionConverter().infixToPrefix(expression);
         Thompson thompson = new Thompson();
