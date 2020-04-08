@@ -9,7 +9,7 @@ public class FormatRegex {
      * operator.
      */
     public static String formatRegEx(String regex) {
-        String res = new String();
+        String res = "";
         String auxRegex = regex.replaceAll("\\s|\\n|\\t", "");
         auxRegex = auxRegex.replaceAll(System.getProperty("line.separator", ""), "");
         List<Character> allOperators = Arrays.asList('|', '?', '+', '*', '^', '.');

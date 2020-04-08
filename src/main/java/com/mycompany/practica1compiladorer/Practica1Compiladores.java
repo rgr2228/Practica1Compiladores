@@ -6,12 +6,10 @@
 package com.mycompany.practica1compiladorer;
 
 
-import com.mycompany.practica1compiladorer.Logic.Thompson;
+import com.mycompany.practica1compiladorer.Logic.ThompsonGraph;
 import com.mycompany.practica1compiladorer.Logic.ToDeterministic;
-import com.mycompany.practica1compiladorer.Model.Node;
 import com.mycompany.practica1compiladorer.Model.State;
-import com.mycompany.practica1compiladorer.Model.Transititon;
-import com.mycompany.practica1compiladorer.Utils.*;
+import com.mycompany.practica1compiladorer.Utils.StringValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,26 +20,20 @@ import java.util.List;
 public class Practica1Compiladores {
 
     public static void main(String[] args) {
-        String expression = "(1|2)+(3|4)+";
-        expression = FormatRegex.formatRegEx(expression);
-        RegexValidator regexValidator = new RegexValidator(expression);
-        boolean isValid = regexValidator.validateInput("000001");
-        boolean isValid2 = regexValidator.validateInput("2");
-        String prefixExp = new ExpressionConverter().infixToPrefix(expression);
-        Thompson thompson = new Thompson();
-        GraphPrefixGenerator graphGenerator = new GraphPrefixGenerator(thompson, prefixExp);
-        List<Node> graph = graphGenerator.generateGraph();
-        System.out.println("Infix Expression: " + expression
-                        + "\nPrefix Expression: " + prefixExp
-        );
-        graph.get(graph.size() - 1).setState(1);
-        ToDeterministic toDet = new ToDeterministic();
-        toDet.setNodeNames(graph.get(0), 1);
+        String regularExpression = "(1|2)+(3|4)+";
+        String expression = "";
+
+        boolean isValid = validateStringByRegex(regularExpression, expression);
+
+        ThompsonGraph thompsonGraph = new ThompsonGraph(regularExpression);
+
+
+        ToDeterministic toDet = new ToDeterministic(thompsonGraph);
         toDet.stateGenerator();
-        List<State> readyStates = new ArrayList<State>();
+        List<State> readyStates = new ArrayList<>();
         toDet.transitionGenerator(toDet.getStates().get(0), readyStates);
-        List<String> auxTerms = new ArrayList<String>();
-        List<State> auxStates = new ArrayList<State>();
+        List<String> auxTerms = new ArrayList<>();
+        List<State> auxStates = new ArrayList<>();
         for (int z = 0; z < toDet.getTransitions().size(); z++) {
             if (!auxTerms.contains(toDet.getTransitions().get(z).getInputSymbol())) {
                 auxTerms.add(toDet.getTransitions().get(z).getInputSymbol());
@@ -57,6 +49,8 @@ public class Practica1Compiladores {
         }
         toDet.noTransitions(auxStates, auxTerms);
         toDet.goToError(auxStates, auxTerms);
+
+
         String[][] matriz = new String[1 + auxStates.size()][2 + auxTerms.size()];
         matriz[0][0] = "Estado";
         int head = 0;
@@ -78,6 +72,7 @@ public class Practica1Compiladores {
                 }
             }
         }
+
         String titles[] = new String[(2 + auxTerms.size())];
         for (int tlt = 0; tlt < (2 + auxTerms.size()); tlt++) {
             titles[tlt] = matriz[tlt][0];
@@ -86,5 +81,10 @@ public class Practica1Compiladores {
         af.setLocationRelativeTo(null);
         af.setTitle("Autómata Finito");
         af.setVisible(true);
+    }
+
+    private static boolean validateStringByRegex(String regularExpression, String expression) {
+        StringValidator stringValidator = new StringValidator(regularExpression);
+        return stringValidator.validateInput(expression);
     }
 }
