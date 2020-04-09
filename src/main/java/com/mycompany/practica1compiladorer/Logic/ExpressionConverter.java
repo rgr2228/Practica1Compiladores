@@ -1,15 +1,18 @@
-package com.mycompany.practica1compiladorer.Utils;
+package com.mycompany.practica1compiladorer.Logic;
+
+import com.mycompany.practica1compiladorer.Model.Stack;
 
 public class ExpressionConverter {
 
     private String prefixExp = "";
 
     public String infixToPrefix(String infixExp) {
-        int infixLegth = infixExp.length();
+        String formattedRegEx = FormatRegex.formatRegEx(infixExp);
+        int infixLegth = formattedRegEx.length();
         Stack stack = new Stack(infixLegth);
 
         for (infixLegth = infixLegth - 1; infixLegth >= 0; infixLegth--) {
-            char ch = infixExp.charAt(infixLegth);
+            char ch = formattedRegEx.charAt(infixLegth);
             switch (ch) {
                 case '|':
                     gotOperator(ch, 1, ')', stack);
@@ -29,6 +32,8 @@ public class ExpressionConverter {
                     break;
                 default:
                     prefixExp = ch + prefixExp;
+                    break;
+
             }
         }
 
@@ -86,40 +91,5 @@ public class ExpressionConverter {
         }
     }
 
-    private boolean isOperator(char x) {
-        switch (x) {
-            case '*':
-            case '+':
-            case '|':
-            case '.':
-                return true;
-        }
-        return false;
-    }
 
-    public String prefixToInfix(String expression) {
-        java.util.Stack<String> stack = new java.util.Stack<>();
-        for (int i = expression.length() - 1; i >= 0; i--) {
-            char c = expression.charAt(i);
-
-            if (isOperator(c)) {
-                String temp = "";
-                if (c == '|' || c == '.') {
-                    String s1 = stack.pop();
-                    String s2 = stack.pop();
-                    temp = "("+s1 + c + s2 +")";
-                } else if (c == '+' || c == '*') {
-                    String s1 = stack.pop();
-                    temp = s1 + c;
-                }
-                stack.push(temp);
-            } else {
-                stack.push(c + "");
-            }
-        }
-
-        String result = stack.pop();
-
-        return result;
-    }
 }

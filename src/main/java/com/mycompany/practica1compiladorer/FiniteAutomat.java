@@ -5,19 +5,28 @@
  */
 package com.mycompany.practica1compiladorer;
 
+import com.mycompany.practica1compiladorer.Logic.ThompsonGraph;
+import com.mycompany.practica1compiladorer.Model.State;
+import com.mycompany.practica1compiladorer.Model.Transititon;
+import com.mycompany.practica1compiladorer.View.MainMenu;
+import java.util.List;
+import javax.swing.JOptionPane;
+import org.javatuples.Pair;
+import org.javatuples.Triplet;
+
 /**
  *
  * @author Raúl Gómez, Alejandro Gallego
  */
 public class FiniteAutomat extends javax.swing.JFrame {
-    private static String[][] matriz;
-    private static String[] matTitles;
+    private static Pair<String[],String[][]> matrixAfd;
+    private static String regularExpression;
     /**
      * Creates new form FiniteAutomat
      */
-    public FiniteAutomat(String[][] mat,String[] matT) {
-        matriz = mat;
-        matTitles= matT;
+    public FiniteAutomat(Pair<String[],String[][]> matrixAfd, String regularExpression) {
+        FiniteAutomat.matrixAfd=matrixAfd;
+        FiniteAutomat.regularExpression = regularExpression;
         initComponents();
     }
 
@@ -32,35 +41,153 @@ public class FiniteAutomat extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        validatorStringTtile = new javax.swing.JLabel();
+        inputString = new javax.swing.JTextField();
+        checkString = new javax.swing.JButton();
+        finiteAutomatTitle = new javax.swing.JLabel();
+        backToGeneratorRegex = new javax.swing.JButton();
+        newAutomat = new javax.swing.JButton();
+        userRegex = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            matriz,
-            matTitles
+            matrixAfd.getValue1(),
+            matrixAfd.getValue0()
         ));
         jTable1.setTableHeader(null);
         jScrollPane1.setViewportView(jTable1);
+
+        validatorStringTtile.setText("COMPROBACIÓN DE HILERA");
+
+        inputString.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputStringActionPerformed(evt);
+            }
+        });
+
+        checkString.setText("COMPROBAR");
+        checkString.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkStringActionPerformed(evt);
+            }
+        });
+
+        finiteAutomatTitle.setText("AUTÓMATA FINITO");
+
+        backToGeneratorRegex.setText("SALIR");
+        backToGeneratorRegex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backToGeneratorRegexActionPerformed(evt);
+            }
+        });
+
+        newAutomat.setText("GENERAR NUEVO AUTÓMATA");
+        newAutomat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newAutomatActionPerformed(evt);
+            }
+        });
+
+        userRegex.setText(regularExpression);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(128, 128, 128)
+                                .addComponent(validatorStringTtile))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(150, 150, 150)
+                                .addComponent(finiteAutomatTitle)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                            .addComponent(inputString)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(newAutomat)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(backToGeneratorRegex, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(checkString)
+                .addGap(147, 147, 147))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(172, 172, 172)
+                .addComponent(userRegex)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addComponent(finiteAutomatTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(userRegex)
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(validatorStringTtile)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inputString, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkString, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backToGeneratorRegex, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newAutomat, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void checkStringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkStringActionPerformed
+        String expression = inputString.getText();
+        if (!expression.equals(""))
+        {
+            try {
+               if(Practica1Compiladores.validateStringByRegex(regularExpression, expression)){
+                inputString.setText("");
+                JOptionPane.showMessageDialog(null, "La hilera fue reconocida por el autómata");
+               }
+               else{
+                inputString.setText("");
+                JOptionPane.showMessageDialog(null, "La hilera no fue reconocida por el autómata");
+               }
+            } catch (Exception e) {
+                inputString.setText("");
+                JOptionPane.showMessageDialog(null, "No se pudo leer la hilera");
+            }
+        } 
+        else 
+        {
+            JOptionPane.showMessageDialog(null, "Debe ingresar una hilera");
+        }
+    }//GEN-LAST:event_checkStringActionPerformed
+
+    private void inputStringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputStringActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputStringActionPerformed
+
+    private void backToGeneratorRegexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToGeneratorRegexActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_backToGeneratorRegexActionPerformed
+
+    private void newAutomatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newAutomatActionPerformed
+        this.setVisible(false);
+        MainMenu mainMenu = new MainMenu();
+        mainMenu.setLocationRelativeTo(null);
+        mainMenu.setTitle("Menú principal");
+        mainMenu.setVisible(true);
+    }//GEN-LAST:event_newAutomatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -92,13 +219,20 @@ public class FiniteAutomat extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FiniteAutomat(matriz,matTitles).setVisible(true);
+                new FiniteAutomat(matrixAfd,regularExpression).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backToGeneratorRegex;
+    private javax.swing.JButton checkString;
+    private javax.swing.JLabel finiteAutomatTitle;
+    private javax.swing.JTextField inputString;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton newAutomat;
+    private javax.swing.JLabel userRegex;
+    private javax.swing.JLabel validatorStringTtile;
     // End of variables declaration//GEN-END:variables
 }
