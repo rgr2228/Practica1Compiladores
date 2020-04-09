@@ -28,20 +28,6 @@ public class Practica1Compiladores {
         mainMenu.setLocationRelativeTo(null);
         mainMenu.setTitle("Menú principal");
         mainMenu.setVisible(true);
-        /*String regularExpression = "(0.1)+.";
-        String expression = "";
-
-        boolean isValid = validateStringByRegex(regularExpression, expression);
-
-        ThompsonGraph thompsonGraph = new ThompsonGraph(regularExpression);
-
-        Triplet<List<String>,List<State>, List<Transititon>> afdElements = getAFDElements(thompsonGraph);
-        Pair<String[],String[][]> matrixAFDElements = getAFDMatrixElements(afdElements);
-
-        FiniteAutomat af = new FiniteAutomat(matrixAFDElements);
-        af.setLocationRelativeTo(null);
-        af.setTitle("Autómata Finito");
-        af.setVisible(true);*/
     }
 
     public static Pair<String[], String[][]> getAFDMatrixElements(Triplet<List<String>, List<State>, List<Transititon>> afdElements) {

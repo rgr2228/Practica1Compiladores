@@ -5,7 +5,6 @@
  */
 package com.mycompany.practica1compiladorer.View;
 
-import com.mycompany.practica1compiladorer.FiniteAutomat;
 import com.mycompany.practica1compiladorer.Logic.ThompsonGraph;
 import com.mycompany.practica1compiladorer.Model.State;
 import com.mycompany.practica1compiladorer.Model.Transititon;
