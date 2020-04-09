@@ -121,12 +121,6 @@ public class ThompsonToDeterministicConverter {
                 } else {
                     int readyStateBool = 0;
                     for (State readyState : readyStates) {
-                        for (Node readyNode : readyState.getNodes()) {
-                            System.out.println("Nodo listo:" + readyNode.getName());
-                        }
-                        for (Node readyNode : goTo.getNodes()) {
-                            System.out.println("goTo listo:" + readyNode.getName());
-                        }
                         if (readyState.getNodes().equals(goTo.getNodes()) && readyState.getState() == goTo.getState()) {
                             transitions.add(new Transititon(s, inputSymbol, readyState));
                             readyStateBool = 1;

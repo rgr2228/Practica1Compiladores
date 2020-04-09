@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.practica1compiladorer;
+package com.mycompany.practica1compiladorer.View;
 
 import com.mycompany.practica1compiladorer.Logic.ThompsonGraph;
 import com.mycompany.practica1compiladorer.Model.State;
 import com.mycompany.practica1compiladorer.Model.Transititon;
+import com.mycompany.practica1compiladorer.Practica1Compiladores;
 import com.mycompany.practica1compiladorer.View.MainMenu;
 import java.util.List;
 import javax.swing.JOptionPane;
