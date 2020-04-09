@@ -11,6 +11,7 @@ import com.mycompany.practica1compiladorer.Logic.ThompsonGraph;
 import com.mycompany.practica1compiladorer.Logic.ThompsonToDeterministicConverter;
 import com.mycompany.practica1compiladorer.Model.State;
 import com.mycompany.practica1compiladorer.Model.Transititon;
+import com.mycompany.practica1compiladorer.View.MainMenu;
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
@@ -23,7 +24,11 @@ import java.util.List;
 public class Practica1Compiladores {
 
     public static void main(String[] args) {
-        String regularExpression = "(1*01*01*)+";
+        MainMenu mainMenu = new MainMenu();
+        mainMenu.setLocationRelativeTo(null);
+        mainMenu.setTitle("Menú principal");
+        mainMenu.setVisible(true);
+        /*String regularExpression = "(0.1)+.";
         String expression = "";
 
         boolean isValid = validateStringByRegex(regularExpression, expression);
@@ -36,10 +41,10 @@ public class Practica1Compiladores {
         FiniteAutomat af = new FiniteAutomat(matrixAFDElements);
         af.setLocationRelativeTo(null);
         af.setTitle("Autómata Finito");
-        af.setVisible(true);
+        af.setVisible(true);*/
     }
 
-    private static Pair<String[], String[][]> getAFDMatrixElements(Triplet<List<String>, List<State>, List<Transititon>> afdElements) {
+    public static Pair<String[], String[][]> getAFDMatrixElements(Triplet<List<String>, List<State>, List<Transititon>> afdElements) {
         List<String> terms = afdElements.getValue0();
         List<State> states = afdElements.getValue1();
         List<Transititon> transititons = afdElements.getValue2();
@@ -74,7 +79,7 @@ public class Practica1Compiladores {
         return new Pair<>(titles,matriz);
     }
 
-    private static Triplet<List<String>, List<State>, List<Transititon>> getAFDElements(ThompsonGraph thompsonGraph) {
+    public static Triplet<List<String>, List<State>, List<Transititon>> getAFDElements(ThompsonGraph thompsonGraph) {
         ThompsonToDeterministicConverter toDeterministic = new ThompsonToDeterministicConverter(thompsonGraph);
         toDeterministic.stateGenerator();
         List<State> readyStates = new ArrayList<>();
@@ -100,7 +105,7 @@ public class Practica1Compiladores {
         return new Triplet<>(auxTerms,auxStates,toDeterministic.getTransitions());
     }
 
-    private static boolean validateStringByRegex(String regularExpression, String expression) {
+    public static boolean validateStringByRegex(String regularExpression, String expression) {
         StringValidator stringValidator = new StringValidator(regularExpression);
         return stringValidator.validateInput(expression);
     }

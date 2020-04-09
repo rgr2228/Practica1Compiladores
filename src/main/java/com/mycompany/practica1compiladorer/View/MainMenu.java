@@ -5,6 +5,16 @@
  */
 package com.mycompany.practica1compiladorer.View;
 
+import com.mycompany.practica1compiladorer.FiniteAutomat;
+import com.mycompany.practica1compiladorer.Logic.ThompsonGraph;
+import com.mycompany.practica1compiladorer.Model.State;
+import com.mycompany.practica1compiladorer.Model.Transititon;
+import com.mycompany.practica1compiladorer.Practica1Compiladores;
+import java.util.List;
+import javax.swing.JOptionPane;
+import org.javatuples.Pair;
+import org.javatuples.Triplet;
+
 /**
  *
  * @author Raúl Gómez, Alejandro Gallego
@@ -79,7 +89,28 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        String regularExpression = jTextField1.getText();
+        if (!regularExpression.equals(""))
+        {
+            try {
+                ThompsonGraph thompsonGraph = new ThompsonGraph(regularExpression);
+                Triplet<List<String>,List<State>, List<Transititon>> afdElements = Practica1Compiladores.getAFDElements(thompsonGraph);
+                Pair<String[],String[][]> matrixAFDElements = Practica1Compiladores.getAFDMatrixElements(afdElements);
+                JOptionPane.showMessageDialog(null, "Autómata exitoso");
+                FiniteAutomat af = new FiniteAutomat(matrixAFDElements);
+                af.setLocationRelativeTo(null);
+                af.setTitle("Autómata Finito");
+                af.setVisible(true);
+                this.setVisible(false);
+            } catch (Exception e) {
+                jTextField1.setText("");
+                JOptionPane.showMessageDialog(null, "Expresión '"+regularExpression+"' no es válida");
+            }
+        } 
+        else 
+        {
+            JOptionPane.showMessageDialog(null, "Debe ingresar una expresión");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
