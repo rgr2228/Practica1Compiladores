@@ -37,24 +37,24 @@ public class MainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        mainTitle = new javax.swing.JLabel();
+        inputRegularExpression = new javax.swing.JTextField();
+        generateAutomat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setText("RECONOCEDOR DE EXPRESIONES REGULARES");
+        mainTitle.setText("RECONOCEDOR DE EXPRESIONES REGULARES");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        inputRegularExpression.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                inputRegularExpressionActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Generar autómata");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        generateAutomat.setText("Generar autómata");
+        generateAutomat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                generateAutomatActionPerformed(evt);
             }
         });
 
@@ -65,31 +65,31 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(24, 24, 24)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(71, 71, 71))))
+                    .addComponent(inputRegularExpression, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mainTitle))
+                .addGap(24, 24, 24))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(generateAutomat)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel2)
+                .addComponent(mainTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1))
+                .addComponent(inputRegularExpression, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(generateAutomat)
+                .addGap(5, 5, 5))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String regularExpression = jTextField1.getText();
+    private void generateAutomatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateAutomatActionPerformed
+        String regularExpression = inputRegularExpression.getText();
         if (!regularExpression.equals(""))
         {
             try {
@@ -97,13 +97,13 @@ public class MainMenu extends javax.swing.JFrame {
                 Triplet<List<String>,List<State>, List<Transititon>> afdElements = Practica1Compiladores.getAFDElements(thompsonGraph);
                 Pair<String[],String[][]> matrixAFDElements = Practica1Compiladores.getAFDMatrixElements(afdElements);
                 JOptionPane.showMessageDialog(null, "Autómata exitoso");
-                FiniteAutomat af = new FiniteAutomat(matrixAFDElements);
+                FiniteAutomat af = new FiniteAutomat(matrixAFDElements,regularExpression);
                 af.setLocationRelativeTo(null);
                 af.setTitle("Autómata Finito");
                 af.setVisible(true);
                 this.setVisible(false);
             } catch (Exception e) {
-                jTextField1.setText("");
+                inputRegularExpression.setText("");
                 JOptionPane.showMessageDialog(null, "Expresión '"+regularExpression+"' no es válida");
             }
         } 
@@ -111,11 +111,11 @@ public class MainMenu extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null, "Debe ingresar una expresión");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_generateAutomatActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void inputRegularExpressionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputRegularExpressionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_inputRegularExpressionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,8 +154,8 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton generateAutomat;
+    private javax.swing.JTextField inputRegularExpression;
+    private javax.swing.JLabel mainTitle;
     // End of variables declaration//GEN-END:variables
 }
